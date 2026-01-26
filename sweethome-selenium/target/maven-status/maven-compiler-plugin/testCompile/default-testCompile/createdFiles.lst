@@ -1,0 +1,7 @@
+com\sweet\home\selenium\LandingPageTest.class
+com\sweet\home\selenium\ReviewSystemTest.class
+com\sweet\home\selenium\AuthenticationTest.class
+com\sweet\home\selenium\CleanerProfileTest.class
+com\sweet\home\selenium\RegistrationFlowTest.class
+com\sweet\home\selenium\HomerProfileTest.class
+com\sweet\home\selenium\BaseSeleniumTest.class
