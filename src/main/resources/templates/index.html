@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Home - Find Your Perfect Cleaner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="logo">
+                <span class="logo-icon">🏠</span>
+                Sweet Home
+            </a>
+            <ul class="nav-links">
+                <li><a th:href="@{/cleaners}">Find Cleaners</a></li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/register/homer}" class="btn btn-secondary btn-sm">Sign Up</a>
+                </li>
+                <li sec:authorize="hasRole('HOMER')">
+                    <a th:href="@{/homer/dashboard}">Dashboard</a>
+                </li>
+                <li sec:authorize="hasRole('CLEANER')">
+                    <a th:href="@{/cleaner/dashboard}">Dashboard</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-secondary btn-sm">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>Find Trusted Cleaners for Your Home</h1>
+            <p>Connect with verified cleaning professionals in your area. Read reviews, compare services, and book with
+                confidence.</p>
+
+            <!-- Search Box -->
+            <form th:action="@{/cleaners}" method="get" class="search-box">
+                <input type="text" name="city" placeholder="Enter your city..." />
+                <select name="categoryId">
+                    <option value="">All Categories</option>
+                    <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}">Category</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Featured Cleaners -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Cleaners</h2>
+            <p class="section-subtitle">Top-rated professionals ready to make your home shine</p>
+
+            <div class="grid grid-4" th:if="${featuredCleaners != null && !featuredCleaners.isEmpty()}">
+                <div th:each="cleaner : ${featuredCleaners}" class="card cleaner-card">
+                    <div class="card-body">
+                        <div class="cleaner-info">
+                            <div class="cleaner-avatar-placeholder" th:text="${cleaner.firstName.charAt(0)}">J</div>
+                            <h3 class="cleaner-name" th:text="${cleaner.fullName}">Jane Doe</h3>
+                            <p class="cleaner-headline" th:text="${cleaner.headline} ?: 'Professional Cleaner'">
+                                Professional house cleaner</p>
+
+                            <div class="cleaner-rating">
+                                <span>⭐</span>
+                                <span th:text="${#numbers.formatDecimal(cleaner.averageRating, 1, 1)}">4.8</span>
+                                <span class="text-muted"
+                                    th:text="'(' + ${cleaner.reviewsReceived.size()} + ' reviews)'"></span>
+                            </div>
+
+                            <p class="cleaner-rate mt-2" th:if="${cleaner.hourlyRate != null}">
+                                <span th:text="'€' + ${cleaner.hourlyRate} + '/hr'">€25/hr</span>
+                            </p>
+
+                            <div class="cleaner-tags"
+                                th:if="${cleaner.categories != null && !cleaner.categories.isEmpty()}">
+                                <span th:each="cat : ${cleaner.categories}" class="tag tag-primary"
+                                    th:text="${cat.name}">General</span>
+                            </div>
+
+                            <a th:href="@{/cleaners/{id}(id=${cleaner.id})}" class="btn btn-primary btn-sm mt-3">View
+                                Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${featuredCleaners == null || featuredCleaners.isEmpty()}" class="text-center py-2">
+                <p class="text-muted">No cleaners available yet. Be the first to join!</p>
+                <a th:href="@{/register/cleaner}" class="btn btn-primary mt-2">Become a Cleaner</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" style="background: var(--gray-100);">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get your home cleaned in 3 simple steps</p>
+
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                        <h3 class="card-title">1. Search</h3>
+                        <p class="card-text">Browse verified cleaners in your area. Filter by services, ratings, and
+                            availability.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📝</div>
+                        <h3 class="card-title">2. Compare</h3>
+                        <p class="card-text">Read detailed profiles, reviews from other homers, and compare rates to
+                            find the perfect match.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">✨</div>
+                        <h3 class="card-title">3. Book</h3>
+                        <p class="card-text">Connect with your chosen cleaner and enjoy a spotless home!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container text-center">
+            <h2 class="section-title">Ready to Get Started?</h2>
+            <p class="section-subtitle">Join thousands of happy homers and cleaners</p>
+            <div class="d-flex justify-center gap-2">
+                <a th:href="@{/register/homer}" class="btn btn-primary btn-lg">Find a Cleaner</a>
+                <a th:href="@{/register/cleaner}" class="btn btn-secondary btn-lg">Become a Cleaner</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">🏠 Sweet Home</div>
+                    <p>Your trusted platform for finding reliable home cleaning professionals.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">For Homers</h4>
+                    <ul class="footer-links">
+                        <li><a href="/cleaners">Find Cleaners</a></li>
+                        <li><a href="/register/homer">Sign Up</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">For Cleaners</h4>
+                    <ul class="footer-links">
+                        <li><a href="/register/cleaner">Join as Cleaner</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sweet Home. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

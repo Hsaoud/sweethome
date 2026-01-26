@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${homer.fullName + ' | Sweet Home'}">Homer Profile | Sweet Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="logo"><span class="logo-icon">🏠</span> Sweet Home</a>
+            <ul class="nav-links">
+                <li><a th:href="@{/cleaners}">Find Cleaners</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="profile-header">
+        <div class="container text-center">
+            <div class="profile-avatar-placeholder" th:text="${homer.firstName.charAt(0)}">J</div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="profile-card">
+                <div class="text-center mb-4">
+                    <h1 class="profile-name" th:text="${homer.fullName}">John Doe</h1>
+                    <p th:if="${homer.city != null}" class="text-muted">📍 <span th:text="${homer.city}">New York</span>
+                    </p>
+                </div>
+
+                <!-- Stats -->
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-value">
+                            <span>⭐</span>
+                            <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}">4.8</span>
+                        </div>
+                        <div class="stat-label">Rating from Cleaners</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" th:text="${reviewCount}">12</div>
+                        <div class="stat-label">Reviews</div>
+                    </div>
+                </div>
+
+                <!-- Reviews from Cleaners -->
+                <div>
+                    <h3 class="mb-2">Reviews from Cleaners</h3>
+
+                    <div th:if="${reviews != null && !reviews.isEmpty()}">
+                        <div th:each="review : ${reviews}" class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar" th:text="${review.reviewer.firstName.charAt(0)}">J</div>
+                                <div>
+                                    <div class="review-author" th:text="${review.reviewer.fullName}">Jane Cleaner</div>
+                                    <div class="review-date"
+                                        th:text="${#temporals.format(review.createdAt, 'MMM d, yyyy')}">Jan 15, 2024
+                                    </div>
+                                </div>
+                                <div class="review-rating" style="margin-left: auto;">
+                                    <span th:each="i : ${#numbers.sequence(1, review.rating)}">⭐</span>
+                                </div>
+                            </div>
+                            <p class="review-content" th:text="${review.comment}">Great client!</p>
+                        </div>
+                    </div>
+
+                    <div th:if="${reviews == null || reviews.isEmpty()}" class="text-center py-2">
+                        <p class="text-muted">No reviews yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sweet Home. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

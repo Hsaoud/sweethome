@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: sweethome-db
+    environment:
+      POSTGRES_DB: sweethome
+      POSTGRES_USER: sweethome
+      POSTGRES_PASSWORD: sweethome
+    ports:
+      - "5432:5432"
+    volumes:
+      - sweethome_data:/var/lib/postgresql/data
+
+volumes:
+  sweethome_data:

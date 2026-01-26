@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Sweet Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="logo"><span class="logo-icon">🏠</span> Sweet Home</a>
+            <ul class="nav-links">
+                <li><a th:href="@{/cleaners}">Find Cleaners</a></li>
+                <li><a th:href="@{/cleaner/dashboard}" class="text-primary">Dashboard</a></li>
+                <li>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-secondary btn-sm">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title" th:text="'Welcome, ' + ${user.firstName} + '!'">Welcome, Jane!</h1>
+                    <p class="text-muted">Manage your cleaner profile and view your reviews</p>
+                </div>
+                <a th:href="@{/cleaner/profile/edit}" class="btn btn-primary">Edit Profile</a>
+            </div>
+
+            <!-- Success Message -->
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+            <!-- Stats -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-card-icon warning">⭐</div>
+                    <div class="stat-card-value" th:text="${#numbers.formatDecimal(averageRating, 1, 1)}">4.8</div>
+                    <div class="stat-card-label">Average Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon primary">📝</div>
+                    <div class="stat-card-value" th:text="${reviewCount}">24</div>
+                    <div class="stat-card-label">Total Reviews</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon success">✓</div>
+                    <div class="stat-card-value" th:text="${user.available} ? 'Yes' : 'No'">Yes</div>
+                    <div class="stat-card-label">Available</div>
+                </div>
+            </div>
+
+            <!-- Quick Profile View -->
+            <div class="card mb-4" style="padding: 1.5rem;">
+                <h3 class="mb-2">Your Profile</h3>
+                <div class="grid grid-2 gap-2">
+                    <div>
+                        <p class="text-muted mb-1">Headline</p>
+                        <p th:text="${user.headline} ?: 'Not set'">Professional cleaner</p>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">City</p>
+                        <p th:text="${user.city} ?: 'Not set'">New York</p>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">Hourly Rate</p>
+                        <p th:text="${user.hourlyRate != null} ? '€' + ${user.hourlyRate} : 'Not set'">€25</p>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">Experience</p>
+                        <p th:text="${user.experienceYears != null} ? ${user.experienceYears} + ' years' : 'Not set'">5
+                            years</p>
+                    </div>
+                </div>
+                <a th:href="@{/cleaners/{id}(id=${user.id})}" class="btn btn-secondary btn-sm mt-3">View Public
+                    Profile</a>
+            </div>
+
+            <!-- Recent Reviews -->
+            <div class="card" style="padding: 1.5rem;">
+                <h3 class="mb-2">Recent Reviews</h3>
+
+                <div th:if="${reviews != null && !reviews.isEmpty()}">
+                    <div th:each="review, iter : ${reviews}" th:if="${iter.index < 5}" class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar" th:text="${review.reviewer.firstName.charAt(0)}">J</div>
+                            <div>
+                                <div class="review-author" th:text="${review.reviewer.fullName}">John Smith</div>
+                                <div class="review-date"
+                                    th:text="${#temporals.format(review.createdAt, 'MMM d, yyyy')}">Jan 15, 2024</div>
+                            </div>
+                            <div class="review-rating" style="margin-left: auto;">
+                                <span th:each="i : ${#numbers.sequence(1, review.rating)}">⭐</span>
+                            </div>
+                        </div>
+                        <p class="review-content" th:text="${review.comment}">Great service!</p>
+                    </div>
+                </div>
+
+                <div th:if="${reviews == null || reviews.isEmpty()}" class="text-center py-2">
+                    <p class="text-muted">No reviews yet. Complete your profile to attract more customers!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sweet Home. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

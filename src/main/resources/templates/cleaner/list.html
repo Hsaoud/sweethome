@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Cleaners | Sweet Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="logo">
+                <span class="logo-icon">🏠</span>
+                Sweet Home
+            </a>
+            <ul class="nav-links">
+                <li><a th:href="@{/cleaners}" class="text-primary">Find Cleaners</a></li>
+                <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
+                <li sec:authorize="hasRole('HOMER')"><a th:href="@{/homer/dashboard}">Dashboard</a></li>
+                <li sec:authorize="hasRole('CLEANER')"><a th:href="@{/cleaner/dashboard}">Dashboard</a></li>
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-secondary btn-sm">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1 class="section-title">Find Your Perfect Cleaner</h1>
+            <p class="section-subtitle">Browse verified professionals in your area</p>
+
+            <!-- Search Filters -->
+            <div class="card mb-4" style="padding: 1.5rem;">
+                <form th:action="@{/cleaners}" method="get" class="d-flex gap-2">
+                    <input type="text" name="city" class="form-control" th:value="${searchCity}"
+                        placeholder="Search by city...">
+                    <select name="categoryId" class="form-control">
+                        <option value="">All Categories</option>
+                        <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"
+                            th:selected="${searchCategoryId != null && searchCategoryId == cat.id}">Category</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <a th:href="@{/cleaners}" class="btn btn-secondary">Clear</a>
+                </form>
+            </div>
+
+            <!-- Results -->
+            <div th:if="${cleaners != null && !cleaners.isEmpty()}" class="grid grid-3">
+                <div th:each="cleaner : ${cleaners}" class="card cleaner-card">
+                    <div class="card-body">
+                        <div class="cleaner-info">
+                            <div class="cleaner-avatar-placeholder" th:text="${cleaner.firstName.charAt(0)}">J</div>
+                            <h3 class="cleaner-name" th:text="${cleaner.fullName}">Jane Doe</h3>
+                            <p class="cleaner-headline" th:text="${cleaner.headline} ?: 'Professional Cleaner'">
+                                Professional cleaner</p>
+
+                            <div class="cleaner-rating">
+                                <span>⭐</span>
+                                <span th:text="${#numbers.formatDecimal(cleaner.averageRating, 1, 1)}">4.8</span>
+                                <span class="text-muted" th:text="'(' + ${cleaner.reviewsReceived.size()} + ')'"></span>
+                            </div>
+
+                            <p class="mt-1" th:if="${cleaner.city != null}">
+                                <span class="text-muted">📍</span>
+                                <span th:text="${cleaner.city}">New York</span>
+                            </p>
+
+                            <p class="cleaner-rate mt-1" th:if="${cleaner.hourlyRate != null}">
+                                <span th:text="'€' + ${cleaner.hourlyRate} + '/hr'">€25/hr</span>
+                            </p>
+
+                            <div class="cleaner-tags"
+                                th:if="${cleaner.categories != null && !cleaner.categories.isEmpty()}">
+                                <span th:each="cat : ${cleaner.categories}" class="tag tag-primary"
+                                    th:text="${cat.name}">General</span>
+                            </div>
+
+                            <a th:href="@{/cleaners/{id}(id=${cleaner.id})}" class="btn btn-primary btn-sm mt-3">View
+                                Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${cleaners == null || cleaners.isEmpty()}" class="text-center py-2">
+                <p class="text-muted" style="font-size: 1.25rem;">No cleaners found matching your criteria.</p>
+                <p class="text-muted">Try adjusting your search or browse all available cleaners.</p>
+                <a th:href="@{/cleaners}" class="btn btn-secondary mt-2">View All Cleaners</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sweet Home. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
