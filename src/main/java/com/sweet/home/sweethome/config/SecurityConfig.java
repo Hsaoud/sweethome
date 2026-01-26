@@ -1,79 +1,73 @@
 package com.sweet.home.sweethome.config;
 
 import com.sweet.home.sweethome.security.CustomUserDetailsService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * Spring Security configuration for Sweet Home platform.
- * Configures session-based authentication with role-based access control.
+ * Spring Security configuration for Angular SPA.
+ * Disables defaults that don't work well with SPA (like redirects)
+ * and enables CORS.
  */
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
 
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for simplicity in MVP
                 .authorizeHttpRequests(auth -> auth
-                        // Public pages
-                        .requestMatchers("/", "/login", "/register/**", "/cleaners", "/cleaners/**").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                        // Public endpoints
+                        .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
                         .requestMatchers("/error").permitAll()
-                        // Homer-only pages
-                        .requestMatchers("/homer/**").hasRole("HOMER")
-                        // Cleaner-only pages
-                        .requestMatchers("/cleaner/**").hasRole("CLEANER")
-                        // Admin pages
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        // Role-based endpoints
+                        .requestMatchers("/api/homer/**").hasRole("HOMER")
+                        .requestMatchers("/api/cleaner/**").hasRole("CLEANER")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         // All other requests require authentication
                         .anyRequest().authenticated())
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        .successHandler(authenticationSuccessHandler())
-                        .failureUrl("/login?error=true")
-                        .permitAll())
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout=true")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll())
                 .exceptionHandling(ex -> ex
-                        .accessDeniedPage("/access-denied"));
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
 
         return http.build();
     }
 
     @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return (request, response, authentication) -> {
-            String role = authentication.getAuthorities().iterator().next().getAuthority();
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
+        configuration.setAllowCredentials(true);
 
-            if (role.equals("ROLE_HOMER")) {
-                response.sendRedirect("/homer/dashboard");
-            } else if (role.equals("ROLE_CLEANER")) {
-                response.sendRedirect("/cleaner/dashboard");
-            } else if (role.equals("ROLE_ADMIN")) {
-                response.sendRedirect("/admin/dashboard");
-            } else {
-                response.sendRedirect("/");
-            }
-        };
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean

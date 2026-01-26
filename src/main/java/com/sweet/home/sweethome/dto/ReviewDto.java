@@ -2,23 +2,41 @@ package com.sweet.home.sweethome.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
 
-/**
- * DTO for submitting a review.
- */
-@Data
 public class ReviewDto {
 
+    @NotNull
     private Long revieweeId;
 
-    @Min(value = 1, message = "Rating must be at least 1")
-    @Max(value = 5, message = "Rating must be at most 5")
+    @NotNull
+    @Min(1)
+    @Max(5)
     private Integer rating;
 
-    @NotBlank(message = "Comment is required")
-    @Size(max = 1000, message = "Comment must be less than 1000 characters")
     private String comment;
+
+    public Long getRevieweeId() {
+        return revieweeId;
+    }
+
+    public void setRevieweeId(Long revieweeId) {
+        this.revieweeId = revieweeId;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

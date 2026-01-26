@@ -5,49 +5,49 @@ import com.sweet.home.sweethome.model.User;
 import com.sweet.home.sweethome.service.ReviewService;
 import com.sweet.home.sweethome.service.UserService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Map;
 
 /**
- * Controller for review operations.
+ * REST Controller for review operations.
  */
-@Controller
-@RequestMapping("/reviews")
-@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/reviews")
 public class ReviewController {
 
     private final ReviewService reviewService;
     private final UserService userService;
 
+    public ReviewController(ReviewService reviewService, UserService userService) {
+        this.reviewService = reviewService;
+        this.userService = userService;
+    }
+
     @PostMapping
-    public String createReview(@Valid @ModelAttribute("reviewDto") ReviewDto reviewDto,
+    public ResponseEntity<?> createReview(@Valid @RequestBody ReviewDto reviewDto,
             BindingResult result,
-            @AuthenticationPrincipal UserDetails userDetails,
-            RedirectAttributes redirectAttributes) {
+            @AuthenticationPrincipal UserDetails userDetails) {
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("error", "Please provide a valid rating and comment");
-            return "redirect:/cleaners/" + reviewDto.getRevieweeId();
+            return ResponseEntity.badRequest().body(Map.of("message", "Invalid review data"));
         }
 
         User reviewer = userService.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         try {
-            reviewService.createReview(
+            var review = reviewService.createReview(
                     reviewer.getId(),
                     reviewDto.getRevieweeId(),
                     reviewDto.getRating(),
                     reviewDto.getComment());
-            redirectAttributes.addFlashAttribute("success", "Review submitted successfully!");
+            return ResponseEntity.ok(review);
         } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
-
-        return "redirect:/cleaners/" + reviewDto.getRevieweeId();
     }
 }

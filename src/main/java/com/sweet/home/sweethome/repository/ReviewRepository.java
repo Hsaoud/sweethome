@@ -25,4 +25,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Long countReviewsForUser(@Param("userId") Long userId);
 
     boolean existsByReviewerAndReviewee(User reviewer, User reviewee);
+
+    // ID-based lookups
+    long countByRevieweeId(Long revieweeId);
+
+    boolean existsByReviewerIdAndRevieweeId(Long reviewerId, Long revieweeId);
 }

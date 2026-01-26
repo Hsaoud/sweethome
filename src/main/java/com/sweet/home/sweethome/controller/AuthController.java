@@ -4,57 +4,66 @@ import com.sweet.home.sweethome.dto.CleanerRegistrationDto;
 import com.sweet.home.sweethome.dto.HomerRegistrationDto;
 import com.sweet.home.sweethome.model.Cleaner;
 import com.sweet.home.sweethome.model.Homer;
+import com.sweet.home.sweethome.model.User;
 import com.sweet.home.sweethome.service.AuthService;
-import com.sweet.home.sweethome.service.CategoryService;
-import com.sweet.home.sweethome.service.SkillService;
+import com.sweet.home.sweethome.service.UserService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
- * Controller for authentication pages: login and registration.
+ * Controller for authentication via REST API.
  */
-@Controller
-@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
-    private final CategoryService categoryService;
-    private final SkillService skillService;
+    private final AuthenticationManager authenticationManager;
+    private final UserService userService;
 
-    @GetMapping("/login")
-    public String loginPage() {
-        return "auth/login";
+    public AuthController(AuthService authService, AuthenticationManager authenticationManager,
+            UserService userService) {
+        this.authService = authService;
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
     }
 
-    @GetMapping("/register/homer")
-    public String showHomerRegistration(Model model) {
-        model.addAttribute("registration", new HomerRegistrationDto());
-        return "auth/register-homer";
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
+        String email = loginRequest.get("username");
+        String password = loginRequest.get("password");
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, password));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        User user = userService.findByEmail(email).orElseThrow();
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register/homer")
-    public String registerHomer(@Valid @ModelAttribute("registration") HomerRegistrationDto dto,
-            BindingResult result,
-            RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            return "auth/register-homer";
-        }
-
+    public ResponseEntity<?> registerHomer(@Valid @RequestBody HomerRegistrationDto dto) {
         if (!dto.getPassword().equals(dto.getConfirmPassword())) {
-            result.rejectValue("confirmPassword", "error.registration", "Passwords do not match");
-            return "auth/register-homer";
+            return ResponseEntity.badRequest().body(Map.of("message", "Passwords do not match"));
         }
 
         if (authService.emailExists(dto.getEmail())) {
-            result.rejectValue("email", "error.registration", "Email already registered");
-            return "auth/register-homer";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "Email already registered"));
         }
 
         Homer homer = new Homer();
@@ -67,43 +76,18 @@ public class AuthController {
         homer.setCity(dto.getCity());
         homer.setPostalCode(dto.getPostalCode());
 
-        authService.registerHomer(homer);
-
-        redirectAttributes.addFlashAttribute("success", "Registration successful! Please login.");
-        return "redirect:/login";
-    }
-
-    @GetMapping("/register/cleaner")
-    public String showCleanerRegistration(Model model) {
-        model.addAttribute("registration", new CleanerRegistrationDto());
-        model.addAttribute("categories", categoryService.findAll());
-        model.addAttribute("skills", skillService.findAll());
-        return "auth/register-cleaner";
+        Homer savedHomer = authService.registerHomer(homer);
+        return ResponseEntity.ok(savedHomer);
     }
 
     @PostMapping("/register/cleaner")
-    public String registerCleaner(@Valid @ModelAttribute("registration") CleanerRegistrationDto dto,
-            BindingResult result,
-            Model model,
-            RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            model.addAttribute("categories", categoryService.findAll());
-            model.addAttribute("skills", skillService.findAll());
-            return "auth/register-cleaner";
-        }
-
+    public ResponseEntity<?> registerCleaner(@Valid @RequestBody CleanerRegistrationDto dto) {
         if (!dto.getPassword().equals(dto.getConfirmPassword())) {
-            result.rejectValue("confirmPassword", "error.registration", "Passwords do not match");
-            model.addAttribute("categories", categoryService.findAll());
-            model.addAttribute("skills", skillService.findAll());
-            return "auth/register-cleaner";
+            return ResponseEntity.badRequest().body(Map.of("message", "Passwords do not match"));
         }
 
         if (authService.emailExists(dto.getEmail())) {
-            result.rejectValue("email", "error.registration", "Email already registered");
-            model.addAttribute("categories", categoryService.findAll());
-            model.addAttribute("skills", skillService.findAll());
-            return "auth/register-cleaner";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "Email already registered"));
         }
 
         Cleaner cleaner = new Cleaner();
@@ -118,16 +102,8 @@ public class AuthController {
         cleaner.setHourlyRate(dto.getHourlyRate());
         cleaner.setExperienceYears(dto.getExperienceYears());
 
-        if (dto.getCategoryIds() != null && !dto.getCategoryIds().isEmpty()) {
-            cleaner.setCategories(categoryService.findByIds(dto.getCategoryIds()));
-        }
-        if (dto.getSkillIds() != null && !dto.getSkillIds().isEmpty()) {
-            cleaner.setSkills(skillService.findByIds(dto.getSkillIds()));
-        }
-
-        authService.registerCleaner(cleaner);
-
-        redirectAttributes.addFlashAttribute("success", "Registration successful! Please login.");
-        return "redirect:/login";
+        return authService.registerCleanerWithIds(cleaner, dto.getCategoryIds(), dto.getSkillIds())
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
     }
 }

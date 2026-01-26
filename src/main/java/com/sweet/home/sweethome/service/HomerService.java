@@ -2,21 +2,20 @@ package com.sweet.home.sweethome.service;
 
 import com.sweet.home.sweethome.model.Homer;
 import com.sweet.home.sweethome.repository.HomerRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service for homer profile management.
- */
 @Service
-@RequiredArgsConstructor
 public class HomerService {
 
     private final HomerRepository homerRepository;
+
+    public HomerService(HomerRepository homerRepository) {
+        this.homerRepository = homerRepository;
+    }
 
     @Transactional(readOnly = true)
     public List<Homer> findAll() {

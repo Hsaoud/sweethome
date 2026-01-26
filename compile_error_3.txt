@@ -1,0 +1,66 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.sweet.home:sweethome >----------------------
+[INFO] Building Sweet Home 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ sweethome ---
+[INFO] Deleting C:\Users\hiche\Documents\Sweet Home\sweethome\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ sweethome ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 14 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ sweethome ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 34 source files with javac [debug release 25] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/ReviewService.java:[45,32] cannot find symbol
+  symbol:   method countByRevieweeId(java.lang.Long)
+  location: variable reviewRepository of type com.sweet.home.sweethome.repository.ReviewRepository
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/ReviewService.java:[76,32] cannot find symbol
+  symbol:   method existsByReviewerIdAndRevieweeId(java.lang.Long,java.lang.Long)
+  location: variable reviewRepository of type com.sweet.home.sweethome.repository.ReviewRepository
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/CleanerService.java:[33,37] cannot find symbol
+  symbol:   method findByCityContainingIgnoreCaseAndCategoriesIdAndAvailableTrue(java.lang.String,java.lang.Long)
+  location: variable cleanerRepository of type com.sweet.home.sweethome.repository.CleanerRepository
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/CleanerService.java:[35,37] cannot find symbol
+  symbol:   method findByCityContainingIgnoreCaseAndAvailableTrue(java.lang.String)
+  location: variable cleanerRepository of type com.sweet.home.sweethome.repository.CleanerRepository
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/CleanerService.java:[37,37] cannot find symbol
+  symbol:   method findByCategoriesIdAndAvailableTrue(java.lang.Long)
+  location: variable cleanerRepository of type com.sweet.home.sweethome.repository.CleanerRepository
+[INFO] 5 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.555 s
+[INFO] Finished at: 2026-01-26T21:12:07+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project sweethome: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/ReviewService.java:[45,32] cannot find symbol
+[ERROR]   symbol:   method countByRevieweeId(java.lang.Long)
+[ERROR]   location: variable reviewRepository of type com.sweet.home.sweethome.repository.ReviewRepository
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/ReviewService.java:[76,32] cannot find symbol
+[ERROR]   symbol:   method existsByReviewerIdAndRevieweeId(java.lang.Long,java.lang.Long)
+[ERROR]   location: variable reviewRepository of type com.sweet.home.sweethome.repository.ReviewRepository
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/CleanerService.java:[33,37] cannot find symbol
+[ERROR]   symbol:   method findByCityContainingIgnoreCaseAndCategoriesIdAndAvailableTrue(java.lang.String,java.lang.Long)
+[ERROR]   location: variable cleanerRepository of type com.sweet.home.sweethome.repository.CleanerRepository
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/CleanerService.java:[35,37] cannot find symbol
+[ERROR]   symbol:   method findByCityContainingIgnoreCaseAndAvailableTrue(java.lang.String)
+[ERROR]   location: variable cleanerRepository of type com.sweet.home.sweethome.repository.CleanerRepository
+[ERROR] /C:/Users/hiche/Documents/Sweet Home/sweethome/src/main/java/com/sweet/home/sweethome/service/CleanerService.java:[37,37] cannot find symbol
+[ERROR]   symbol:   method findByCategoriesIdAndAvailableTrue(java.lang.Long)
+[ERROR]   location: variable cleanerRepository of type com.sweet.home.sweethome.repository.CleanerRepository
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

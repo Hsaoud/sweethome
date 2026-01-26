@@ -5,89 +5,74 @@ import com.sweet.home.sweethome.model.User;
 import com.sweet.home.sweethome.service.HomerService;
 import com.sweet.home.sweethome.service.ReviewService;
 import com.sweet.home.sweethome.service.UserService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Map;
 
 /**
- * Controller for homer-related pages: profile, dashboard.
+ * REST Controller for homer-related pages: profile, dashboard.
  */
-@Controller
-@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/homer")
 public class HomerController {
 
-    private final HomerService homerService;
-    private final ReviewService reviewService;
-    private final UserService userService;
+        private final HomerService homerService;
+        private final ReviewService reviewService;
+        private final UserService userService;
 
-    // Public: View homer profile
-    @GetMapping("/homers/{id}")
-    public String viewHomerProfile(@PathVariable Long id, Model model) {
-        Homer homer = homerService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Homer not found"));
-
-        model.addAttribute("homer", homer);
-        model.addAttribute("reviews", reviewService.getReviewsForUser(id));
-        model.addAttribute("averageRating", reviewService.getAverageRating(id));
-        model.addAttribute("reviewCount", reviewService.getReviewCount(id));
-
-        return "homer/profile";
-    }
-
-    // Homer: Dashboard
-    @GetMapping("/homer/dashboard")
-    public String homerDashboard(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        User user = userService.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        model.addAttribute("user", user);
-        model.addAttribute("reviews", reviewService.getReviewsForUser(user.getId()));
-        model.addAttribute("reviewsGiven", reviewService.getReviewsByReviewer(user));
-
-        return "homer/dashboard";
-    }
-
-    // Homer: Edit profile form
-    @GetMapping("/homer/profile/edit")
-    public String editProfileForm(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        User user = userService.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        if (!(user instanceof Homer)) {
-            return "redirect:/";
+        public HomerController(HomerService homerService, ReviewService reviewService, UserService userService) {
+                this.homerService = homerService;
+                this.reviewService = reviewService;
+                this.userService = userService;
         }
 
-        model.addAttribute("homer", user);
-        return "homer/edit-profile";
-    }
+        // Public: View homer profile
+        @GetMapping("/{id}")
+        public ResponseEntity<?> viewHomerProfile(@PathVariable Long id) {
+                Homer homer = homerService.findById(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Homer not found"));
 
-    // Homer: Update profile
-    @PostMapping("/homer/profile/edit")
-    public String updateProfile(@AuthenticationPrincipal UserDetails userDetails,
-            @ModelAttribute Homer updatedHomer,
-            RedirectAttributes redirectAttributes) {
-        User user = userService.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        if (!(user instanceof Homer homer)) {
-            return "redirect:/";
+                return ResponseEntity.ok(Map.of(
+                                "homer", homer,
+                                "reviews", reviewService.getReviewsForUser(id),
+                                "averageRating", reviewService.getAverageRating(id),
+                                "reviewCount", reviewService.getReviewCount(id)));
         }
 
-        homer.setFirstName(updatedHomer.getFirstName());
-        homer.setLastName(updatedHomer.getLastName());
-        homer.setPhone(updatedHomer.getPhone());
-        homer.setAddress(updatedHomer.getAddress());
-        homer.setCity(updatedHomer.getCity());
-        homer.setPostalCode(updatedHomer.getPostalCode());
-        homer.setAdditionalInfo(updatedHomer.getAdditionalInfo());
+        // Homer: Dashboard Data
+        @GetMapping("/dashboard")
+        public ResponseEntity<?> homerDashboard(@AuthenticationPrincipal UserDetails userDetails) {
+                User user = userService.findByEmail(userDetails.getUsername())
+                                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        homerService.save(homer);
+                return ResponseEntity.ok(Map.of(
+                                "user", user,
+                                "reviewsReceived", reviewService.getReviewsForUser(user.getId()),
+                                "reviewsGiven", reviewService.getReviewsByReviewer(user),
+                                "averageRating", reviewService.getAverageRating(user.getId())));
+        }
 
-        redirectAttributes.addFlashAttribute("success", "Profile updated successfully!");
-        return "redirect:/homer/dashboard";
-    }
+        // Homer: Update profile
+        @PutMapping("/profile")
+        public ResponseEntity<?> updateProfile(@AuthenticationPrincipal UserDetails userDetails,
+                        @RequestBody Homer updatedHomer) {
+                User user = userService.findByEmail(userDetails.getUsername())
+                                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+                if (!(user instanceof Homer)) {
+                        return ResponseEntity.badRequest().body("Not a homer account");
+                }
+
+                Homer saved = homerService.updateProfile(
+                                user.getId(),
+                                updatedHomer.getAddress(),
+                                updatedHomer.getCity(),
+                                updatedHomer.getPostalCode(),
+                                updatedHomer.getAdditionalInfo());
+
+                return ResponseEntity.ok(saved);
+        }
 }

@@ -1,0 +1,86 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    @if (loading) {
+    <div class="text-center">Loading...</div>
+    } @else if (dashboardData) {
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Welcome, {{ dashboardData.user.firstName }}!</h1>
+        <a routerLink="/cleaners" class="bg-primary-600 text-white px-4 py-2 rounded shadow hover:bg-primary-700">Find
+            Cleaners</a>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-lg shadow">
+            <div class="text-gray-500 text-sm font-medium uppercase">Reviews Given</div>
+            <div class="mt-2 text-3xl font-bold text-gray-900">{{ dashboardData.reviewsGiven.length }}</div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <div class="text-gray-500 text-sm font-medium uppercase">Reviews Received</div>
+            <div class="mt-2 text-3xl font-bold text-gray-900">{{ dashboardData.reviewsReceived.length }}</div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <div class="text-gray-500 text-sm font-medium uppercase">Your Location</div>
+            <div class="mt-2 text-2xl font-bold text-gray-900">{{ dashboardData.user.city || 'N/A' }}</div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Reviews Given -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                <h3 class="text-lg font-medium text-gray-900">Your Recent Reviews</h3>
+            </div>
+            <div class="divide-y divide-gray-200">
+                @for (review of dashboardData.reviewsGiven; track review.id) {
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900">To: {{ review.reviewee.firstName }}</div>
+                            <div class="text-sm text-gray-500">{{ review.createdAt | date }}</div>
+                        </div>
+                        <div class="flex text-yellow-400 text-sm">
+                            @for (star of getStars(review.rating); track $index) {
+                            <span>{{ star ? '★' : '☆' }}</span>
+                            }
+                        </div>
+                    </div>
+                    <p class="mt-2 text-gray-600 text-sm">{{ review.comment }}</p>
+                </div>
+                }
+                @if (dashboardData.reviewsGiven.length === 0) {
+                <div class="p-6 text-center text-gray-500">You haven't written any reviews yet.</div>
+                }
+            </div>
+        </div>
+
+        <!-- Reviews Received -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                <h3 class="text-lg font-medium text-gray-900">Reviews About You</h3>
+            </div>
+            <div class="divide-y divide-gray-200">
+                @for (review of dashboardData.reviewsReceived; track review.id) {
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900">From: {{ review.reviewer.firstName }}</div>
+                            <div class="text-sm text-gray-500">{{ review.createdAt | date }}</div>
+                        </div>
+                        <div class="flex text-yellow-400 text-sm">
+                            @for (star of getStars(review.rating); track $index) {
+                            <span>{{ star ? '★' : '☆' }}</span>
+                            }
+                        </div>
+                    </div>
+                    <p class="mt-2 text-gray-600 text-sm">{{ review.comment }}</p>
+                </div>
+                }
+                @if (dashboardData.reviewsReceived.length === 0) {
+                <div class="p-6 text-center text-gray-500">No reviews received yet.</div>
+                }
+            </div>
+        </div>
+    </div>
+
+    }
+</div>

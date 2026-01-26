@@ -1,0 +1,73 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    @if (loading) {
+    <div class="text-center">Loading...</div>
+    } @else if (dashboardData) {
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Welcome, {{ dashboardData.user.firstName }}!</h1>
+        <!-- Edit Profile link assumes routing setup for it, kept simple for MVP -->
+        <button class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded shadow hover:bg-gray-50">Edit
+            Profile</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-lg shadow border-l-4 border-yellow-400">
+            <div class="text-gray-500 text-sm font-medium uppercase">Rating</div>
+            <div class="mt-2 text-3xl font-bold text-gray-900 flex items-center">
+                {{ dashboardData.averageRating | number:'1.1-1' }} <span class="text-yellow-400 text-xl ml-1">★</span>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow border-l-4 border-blue-400">
+            <div class="text-gray-500 text-sm font-medium uppercase">Reviews</div>
+            <div class="mt-2 text-3xl font-bold text-gray-900">{{ dashboardData.reviewCount }}</div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow border-l-4 border-primary-500">
+            <div class="text-gray-500 text-sm font-medium uppercase">Rate</div>
+            <div class="mt-2 text-3xl font-bold text-gray-900">€{{ dashboardData.user.hourlyRate || 0 }}/hr</div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow border-l-4 border-green-500">
+            <div class="text-gray-500 text-sm font-medium uppercase">Status</div>
+            <div class="mt-2 text-xl font-bold text-gray-900">
+                {{ dashboardData.user.available ? 'Available' : 'Unavailable' }}
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+            <h3 class="text-lg font-medium text-gray-900">Recent Reviews</h3>
+            <span class="text-sm text-gray-500">Total: {{ dashboardData.reviews.length }}</span>
+        </div>
+        <div class="divide-y divide-gray-200">
+            @for (review of dashboardData.reviews; track review.id) {
+            <div class="p-6">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center">
+                        <div
+                            class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">
+                            {{ review.reviewer.firstName.charAt(0) }}
+                        </div>
+                        <div class="ml-3">
+                            <div class="text-sm font-medium text-gray-900">{{ review.reviewer.firstName }} {{
+                                review.reviewer.lastName }}</div>
+                            <div class="text-sm text-gray-500">{{ review.createdAt | date }}</div>
+                        </div>
+                    </div>
+                    <div class="flex text-yellow-400">
+                        @for (star of getStars(review.rating); track $index) {
+                        <span>{{ star ? '★' : '☆' }}</span>
+                        }
+                    </div>
+                </div>
+                <p class="mt-4 text-gray-600">{{ review.comment }}</p>
+            </div>
+            }
+            @if (dashboardData.reviews.length === 0) {
+            <div class="p-6 text-center text-gray-500 text-lg">
+                No reviews yet. Keep up the good work!
+            </div>
+            }
+        </div>
+    </div>
+    }
+</div>

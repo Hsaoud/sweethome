@@ -1,0 +1,61 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Find Your Perfect Cleaner</h2>
+        <p class="mt-4 text-xl text-gray-500">Browse verified professionals in your area</p>
+    </div>
+
+    <!-- Search -->
+    <div class="max-w-3xl mx-auto mb-10">
+        <div class="flex shadow-sm rounded-md">
+            <input type="text" [(ngModel)]="searchCity" (keyup.enter)="onSearch()"
+                placeholder="Enter your city (e.g. New York)"
+                class="flex-1 min-w-0 block w-full px-4 py-3 rounded-l-md border border-gray-300 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+            <button (click)="onSearch()"
+                class="inline-flex items-center px-6 py-3 border border-transparent rounded-r-md shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                Search
+            </button>
+        </div>
+    </div>
+
+    <!-- Grid -->
+    @if (cleaners.length > 0) {
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        @for (cleaner of cleaners; track cleaner.id) {
+        <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+                <div class="flex items-center">
+                    <div
+                        class="flex-shrink-0 h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center text-xl font-bold text-primary-600">
+                        {{ cleaner.firstName.charAt(0) }}
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">{{ cleaner.firstName }} {{ cleaner.lastName }}
+                        </h3>
+                        <p class="text-sm text-gray-500">{{ cleaner.headline || 'Professional Cleaner' }}</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm text-gray-500 mb-2">
+                        <span class="mr-2">📍</span> {{ cleaner.city || 'Unknown Location' }}
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <span class="mr-2">💰</span>
+                        <span class="font-semibold text-gray-900">€{{ cleaner.hourlyRate || 0 }}/hr</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <a [routerLink]="['/cleaners', cleaner.id]"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-700 bg-primary-50 hover:bg-primary-100">
+                        View Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    } @else {
+    <div class="text-center py-12">
+        <p class="text-gray-500 text-lg">No cleaners found matching your criteria.</p>
+    </div>
+    }
+</div>

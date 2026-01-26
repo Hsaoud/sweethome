@@ -23,7 +23,7 @@ public abstract class BaseSeleniumTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    protected static final String BASE_URL = "http://localhost:8080";
+    protected static final String BASE_URL = "http://localhost:4200";
     protected static final Duration TIMEOUT = Duration.ofSeconds(10);
 
     @BeforeAll

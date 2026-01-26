@@ -1,19 +1,10 @@
 package com.sweet.home.sweethome.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.Objects;
 
-/**
- * Skill entity - represents individual cleaning skills.
- * E.g., Window cleaning, Carpet cleaning, Pet-friendly.
- */
 @Entity
 @Table(name = "skills")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Skill {
 
     @Id
@@ -25,8 +16,50 @@ public class Skill {
 
     private String description;
 
+    public Skill() {
+    }
+
     public Skill(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Skill skill = (Skill) o;
+        return Objects.equals(id, skill.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

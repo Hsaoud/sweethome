@@ -4,21 +4,22 @@ import com.sweet.home.sweethome.model.Review;
 import com.sweet.home.sweethome.model.User;
 import com.sweet.home.sweethome.repository.ReviewRepository;
 import com.sweet.home.sweethome.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Service for review management.
- */
 @Service
-@RequiredArgsConstructor
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
+
+    public ReviewService(ReviewRepository reviewRepository, UserRepository userRepository) {
+        this.reviewRepository = reviewRepository;
+        this.userRepository = userRepository;
+    }
 
     @Transactional(readOnly = true)
     public List<Review> getReviewsForUser(Long userId) {
@@ -31,14 +32,17 @@ public class ReviewService {
     }
 
     @Transactional(readOnly = true)
-    public Double getAverageRating(Long userId) {
-        Double avg = reviewRepository.getAverageRatingForUser(userId);
-        return avg != null ? avg : 0.0;
+    public double getAverageRating(Long userId) {
+        List<Review> reviews = getReviewsForUser(userId);
+        if (reviews.isEmpty()) {
+            return 0.0;
+        }
+        return reviews.stream().mapToInt(Review::getRating).average().orElse(0.0);
     }
 
     @Transactional(readOnly = true)
-    public Long getReviewCount(Long userId) {
-        return reviewRepository.countReviewsForUser(userId);
+    public long getReviewCount(Long userId) {
+        return reviewRepository.countByRevieweeId(userId);
     }
 
     @Transactional
@@ -48,20 +52,27 @@ public class ReviewService {
         User reviewee = userRepository.findById(revieweeId)
                 .orElseThrow(() -> new IllegalArgumentException("Reviewee not found"));
 
-        if (reviewRepository.existsByReviewerAndReviewee(reviewer, reviewee)) {
-            throw new IllegalArgumentException("You have already reviewed this user");
+        if (reviewerId.equals(revieweeId)) {
+            throw new IllegalArgumentException("Cannot review yourself");
         }
 
-        Review review = new Review(reviewer, reviewee, rating, comment);
+        Review review = new Review();
+        review.setReviewer(reviewer);
+        review.setReviewee(reviewee);
+        review.setRating(rating);
+        review.setComment(comment);
+        review.setCreatedAt(LocalDateTime.now());
+
         return reviewRepository.save(review);
     }
 
     @Transactional(readOnly = true)
     public boolean hasReviewed(Long reviewerId, Long revieweeId) {
-        User reviewer = userRepository.findById(reviewerId).orElse(null);
-        User reviewee = userRepository.findById(revieweeId).orElse(null);
-        if (reviewer == null || reviewee == null)
-            return false;
-        return reviewRepository.existsByReviewerAndReviewee(reviewer, reviewee);
+        // Simple check if a review exists from reviewer to reviewee
+        // Assuming repository has this method or we scan
+        // For MVP/Optimization, adding method to repo is best, but scanning list works
+        // for small data
+        // Let's rely on repo method if exists, or just use list
+        return reviewRepository.existsByReviewerIdAndRevieweeId(reviewerId, revieweeId);
     }
 }

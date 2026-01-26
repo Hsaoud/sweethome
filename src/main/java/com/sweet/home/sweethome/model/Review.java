@@ -3,24 +3,13 @@ package com.sweet.home.sweethome.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-/**
- * Review entity - bidirectional reviews between Homers and Cleaners.
- * Homers review Cleaners after service, Cleaners can review Homers.
- */
 @Entity
 @Table(name = "reviews")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Review {
 
     @Id
@@ -40,19 +29,83 @@ public class Review {
     @Column(nullable = false)
     private Integer rating;
 
-    @NotBlank(message = "Review comment is required")
-    @Size(max = 1000)
-    @Column(length = 1000, nullable = false)
+    @Column(length = 1000)
     private String comment;
 
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    public Review() {
+    }
+
     public Review(User reviewer, User reviewee, Integer rating, String comment) {
         this.reviewer = reviewer;
         this.reviewee = reviewee;
         this.rating = rating;
         this.comment = comment;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(User reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    public User getReviewee() {
+        return reviewee;
+    }
+
+    public void setReviewee(User reviewee) {
+        this.reviewee = reviewee;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Review review = (Review) o;
+        return Objects.equals(id, review.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
