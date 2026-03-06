@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
 
 import { RegisterHomerComponent } from './register-homer.component';
 
@@ -8,7 +10,7 @@ describe('RegisterHomerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegisterHomerComponent]
+      imports: [HttpClientTestingModule, RouterModule.forRoot([]), RegisterHomerComponent]
     })
     .compileComponents();
     
@@ -21,3 +23,4 @@ describe('RegisterHomerComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

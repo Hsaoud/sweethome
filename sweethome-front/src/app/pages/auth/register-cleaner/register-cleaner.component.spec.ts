@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
 
 import { RegisterCleanerComponent } from './register-cleaner.component';
 
@@ -8,7 +10,7 @@ describe('RegisterCleanerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegisterCleanerComponent]
+      imports: [HttpClientTestingModule, RouterModule.forRoot([]), RegisterCleanerComponent]
     })
     .compileComponents();
     
@@ -21,3 +23,4 @@ describe('RegisterCleanerComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
