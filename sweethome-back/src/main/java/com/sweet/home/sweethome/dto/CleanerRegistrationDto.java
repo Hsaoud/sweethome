@@ -34,7 +34,9 @@ public class CleanerRegistrationDto {
 
     private String city;
 
-    private BigDecimal hourlyRate;
+    private BigDecimal pricePerSqm;
+
+    private Integer actionRadiusKm = 30;
 
     private Integer experienceYears;
 
@@ -114,12 +116,20 @@ public class CleanerRegistrationDto {
         this.city = city;
     }
 
-    public BigDecimal getHourlyRate() {
-        return hourlyRate;
+    public BigDecimal getPricePerSqm() {
+        return pricePerSqm;
     }
 
-    public void setHourlyRate(BigDecimal hourlyRate) {
-        this.hourlyRate = hourlyRate;
+    public void setPricePerSqm(BigDecimal pricePerSqm) {
+        this.pricePerSqm = pricePerSqm;
+    }
+
+    public Integer getActionRadiusKm() {
+        return actionRadiusKm;
+    }
+
+    public void setActionRadiusKm(Integer actionRadiusKm) {
+        this.actionRadiusKm = actionRadiusKm;
     }
 
     public Integer getExperienceYears() {

@@ -23,13 +23,72 @@
         </div>
         <div class="bg-white p-6 rounded-lg shadow border-l-4 border-primary-500">
             <div class="text-gray-500 text-sm font-medium uppercase">Rate</div>
-            <div class="mt-2 text-3xl font-bold text-gray-900">€{{ dashboardData.user.hourlyRate || 0 }}/hr</div>
+            <div class="mt-2 text-3xl font-bold text-gray-900">€{{ dashboardData.user.pricePerSqm || 0 }}/m²</div>
         </div>
         <div class="bg-white p-6 rounded-lg shadow border-l-4 border-green-500">
             <div class="text-gray-500 text-sm font-medium uppercase">Status</div>
             <div class="mt-2 text-xl font-bold text-gray-900">
                 {{ dashboardData.user.available ? 'Available' : 'Unavailable' }}
             </div>
+        </div>
+    </div>
+
+    <!-- Booking Requests -->
+    <div class="bg-white rounded-lg shadow overflow-hidden mb-8">
+        <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+            <h3 class="text-lg font-medium text-gray-900">Demandes de Réservations</h3>
+            <span class="text-sm text-gray-500">Total: {{ bookings.length }}</span>
+        </div>
+        <div class="divide-y divide-gray-200">
+            @for (booking of bookings; track booking.id) {
+            <div class="p-6">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center">
+                        <div class="ml-3">
+                            <div class="text-lg font-bold text-gray-900">Client: {{ booking.homer.firstName }} {{
+                                booking.homer.lastName }}</div>
+                            <div class="text-sm text-gray-500 mt-1">
+                                <span class="font-semibold text-gray-900">Date:</span> {{ booking.date | date }}
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <span class="font-semibold text-gray-900">Horaire:</span> {{ booking.startTime }} - {{
+                                booking.endTime }}
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <span class="font-semibold text-gray-900">Surface:</span> {{ booking.surface }} m²
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <span class="px-3 py-1 mb-3 text-sm font-semibold rounded-full" [ngClass]="{
+                              'bg-yellow-100 text-yellow-800': booking.status === 'PENDING',
+                              'bg-green-100 text-green-800': booking.status === 'ACCEPTED' || booking.status === 'COMPLETED',
+                              'bg-red-100 text-red-800': booking.status === 'REJECTED' || booking.status === 'CANCELLED'
+                          }">
+                            {{ booking.status }}
+                        </span>
+
+                        @if (booking.status === 'PENDING') {
+                        <div class="flex gap-2">
+                            <button (click)="updateBookingStatus(booking.id, 'ACCEPTED')"
+                                class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded shadow text-sm">Accepter</button>
+                            <button (click)="updateBookingStatus(booking.id, 'REJECTED')"
+                                class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded shadow text-sm">Refuser</button>
+                        </div>
+                        }
+
+                        <div class="mt-3 text-xl font-bold text-primary-600">
+                            Revenu: €{{ booking.totalPrice }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+            @if (bookings.length === 0) {
+            <div class="p-6 text-center text-gray-500 text-lg">
+                Vous n'avez pas de demandes de réservation.
+            </div>
+            }
         </div>
     </div>
 

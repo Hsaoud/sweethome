@@ -19,7 +19,9 @@ public class Cleaner extends User {
     @Column(length = 2000)
     private String bio;
 
-    private BigDecimal hourlyRate;
+    private BigDecimal pricePerSqm;
+
+    private Integer actionRadiusKm = 30;
 
     @Min(0)
     @Max(50)
@@ -79,12 +81,20 @@ public class Cleaner extends User {
         this.bio = bio;
     }
 
-    public BigDecimal getHourlyRate() {
-        return hourlyRate;
+    public BigDecimal getPricePerSqm() {
+        return pricePerSqm;
     }
 
-    public void setHourlyRate(BigDecimal hourlyRate) {
-        this.hourlyRate = hourlyRate;
+    public void setPricePerSqm(BigDecimal pricePerSqm) {
+        this.pricePerSqm = pricePerSqm;
+    }
+
+    public Integer getActionRadiusKm() {
+        return actionRadiusKm;
+    }
+
+    public void setActionRadiusKm(Integer actionRadiusKm) {
+        this.actionRadiusKm = actionRadiusKm;
     }
 
     public Integer getExperienceYears() {

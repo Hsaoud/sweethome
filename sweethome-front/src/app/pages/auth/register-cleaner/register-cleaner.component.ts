@@ -22,7 +22,8 @@ export class RegisterCleanerComponent {
     headline: '',
     bio: '',
     city: '',
-    hourlyRate: null,
+    pricePerSqm: null as number | null,
+    actionRadiusKm: 50,
     experienceYears: null,
     categoryIds: [],
     skillIds: []

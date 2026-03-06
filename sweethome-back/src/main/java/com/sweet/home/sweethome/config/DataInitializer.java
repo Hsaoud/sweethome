@@ -78,7 +78,7 @@ public class DataInitializer implements CommandLineRunner {
                                 "Hello! I'm Marie, a dedicated cleaning professional who takes pride in transforming homes. With over 8 years of experience, I specialize in deep cleaning, move-in/out services, and regular maintenance. I use eco-friendly products and pay attention to every detail. Your satisfaction is my priority!");
                 demoCleaner.setCity("Paris");
                 demoCleaner.setServiceArea("Paris, Boulogne-Billancourt, Neuilly");
-                demoCleaner.setHourlyRate(new BigDecimal("28.00"));
+                demoCleaner.setPricePerSqm(new BigDecimal("28.00"));
                 demoCleaner.setExperienceYears(8);
                 demoCleaner.setAvailable(true);
 
@@ -109,7 +109,7 @@ public class DataInitializer implements CommandLineRunner {
                 demoCleaner2.setBio(
                                 "Specialized in commercial spaces and window cleaning. Available for regular contracts.");
                 demoCleaner2.setCity("Lyon");
-                demoCleaner2.setHourlyRate(new BigDecimal("32.00"));
+                demoCleaner2.setPricePerSqm(new BigDecimal("32.00"));
                 demoCleaner2.setExperienceYears(5);
                 demoCleaner2.setAvailable(true);
 

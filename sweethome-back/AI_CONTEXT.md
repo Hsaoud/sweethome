@@ -21,6 +21,7 @@ It serves REST APIs to the Angular frontend and connects to a PostgreSQL databas
 
 ## Testing Strategy & TDD Constraint
 **CRITICAL INSTRUCTION**: All future evolutions, feature developments, and bugfixes MUST be implemented using the **Test-Driven Development (TDD)** methodology.
+**BACKEND-FIRST WORKFLOW**: Always implement the backend (domain models, repositories, services, controllers) with full TDD coverage BEFORE starting any frontend implementation for a given feature.
 - Write the unit or component test *before* implementing the actual logic or feature.
 - Ensure the test fails first, then write the minimal code required to make it pass, and finally refactor.
 - Use **JUnit 5** and **Mockito** for unit testing (`@ExtendWith(MockitoExtension.class)`).

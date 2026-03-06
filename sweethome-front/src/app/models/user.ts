@@ -7,10 +7,13 @@ export interface User {
     // Common fields
     phone?: string;
     city?: string;
+    latitude?: number;
+    longitude?: number;
     // Cleaner specific
     headline?: string;
     bio?: string;
-    hourlyRate?: number;
+    pricePerSqm?: number;
+    actionRadiusKm?: number;
     experienceYears?: number;
     available?: boolean;
 }

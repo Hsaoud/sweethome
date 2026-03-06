@@ -10,8 +10,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * REST Controller for cleaner-related operations.
@@ -41,6 +44,20 @@ public class CleanerController {
             cleaners = cleanerService.findAvailable();
         }
         return ResponseEntity.ok(cleaners);
+    }
+
+    @GetMapping("/searchGeo")
+    public ResponseEntity<?> searchCleanersGeo(
+            @RequestParam("lat") Double lat,
+            @RequestParam("lng") Double lng,
+            @RequestParam(value = "surface", required = false) Integer surface,
+            @RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam(value = "startTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
+            @RequestParam(value = "endTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime) {
+
+        List<com.sweet.home.sweethome.dto.CleanerSearchResponseDto> response = cleanerService.searchCleaners(lat, lng,
+                surface, date, startTime, endTime);
+        return ResponseEntity.ok(response);
     }
 
     // Public: View cleaner profile

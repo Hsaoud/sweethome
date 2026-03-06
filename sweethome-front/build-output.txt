@@ -1,0 +1,67 @@
+- Building...
+
+ERROR kr {
+  headers: e {
+    normalizedNames: Map(11) {
+      'cache-control' => 'cache-control',
+      'connection' => 'connection',
+      'content-length' => 'content-length',
+      'date' => 'date',
+      'expires' => 'expires',
+      'keep-alive' => 'keep-alive',
+      'pragma' => 'pragma',
+      'vary' => 'vary',
+      'x-content-type-options' => 'x-content-type-options',
+      'x-frame-options' => 'x-frame-options',
+      'x-xss-protection' => 'x-xss-protection'
+    },
+    lazyUpdate: null,
+    headers: Map(11) {
+      'cache-control' => [Array],
+      'connection' => [Array],
+      'content-length' => [Array],
+      'date' => [Array],
+      'expires' => [Array],
+      'keep-alive' => [Array],
+      'pragma' => [Array],
+      'vary' => [Array],
+      'x-content-type-options' => [Array],
+      'x-frame-options' => [Array],
+      'x-xss-protection' => [Array]
+    }
+  },
+  status: 401,
+  statusText: 'Unknown Error',
+  url: 'http://localhost:8080/api/cleaners',
+  ok: false,
+  name: 'HttpErrorResponse',
+  message: 'Http failure response for http://localhost:8080/api/cleaners: 401 ',
+  error: null
+}
+Browser bundles        
+Initial chunk files     | Names               |  Raw size | Estimated transfer size
+main-FEZFQPSJ.js        | main                | 305.64 kB |                77.39 kB
+polyfills-FFHMD2TL.js   | polyfills           |  33.71 kB |                11.02 kB
+styles-WPP6TBB4.css     | styles              |  27.41 kB |                 3.84 kB
+
+                        | Initial total       | 366.76 kB |                92.25 kB
+
+
+Server bundles         
+Initial chunk files     | Names               |  Raw size
+server.mjs              | server              |   1.06 MB |                        
+chunk-ZPNRJOM6.mjs      | -                   | 557.17 kB |                        
+polyfills.server.mjs    | polyfills.server    | 262.30 kB |                        
+chunk-OXYEPSXO.mjs      | -                   |  66.13 kB |                        
+chunk-VVCT4QZE.mjs      | -                   |   2.48 kB |                        
+render-utils.server.mjs | render-utils.server |   1.44 kB |                        
+main.server.mjs         | main.server         | 149 bytes |                        
+
+Lazy chunk files        | Names               |  Raw size
+chunk-QZP2S7SI.mjs      | xhr2                |  11.79 kB |                        
+
+Prerendered 7 static routes.
+Output location: C:\Users\hiche\Documents\Sweet Home\sweethome\sweethome-front\dist\ui
+
+Application bundle generation complete. [5.095 seconds]
+

@@ -19,6 +19,7 @@ This is the **Frontend** Single Page Application (SPA) for the Sweet Home projec
 
 ## Testing Strategy & TDD Constraint
 **CRITICAL INSTRUCTION**: All future evolutions, feature developments, and bugfixes MUST be implemented using the **Test-Driven Development (TDD)** methodology.
+**BACKEND-FIRST WORKFLOW**: Frontend implementation for a feature must ONLY begin after the corresponding backend API and domain logic are fully implemented and tested using TDD.
 - Write the unit or component test *before* implementing the actual logic or feature.
 - Ensure the test fails first, then write the minimal code required to make it pass, and finally refactor.
 - Unit tests run on **Jasmine & Karma**.

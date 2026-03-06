@@ -99,7 +99,8 @@ public class AuthController {
         cleaner.setHeadline(dto.getHeadline());
         cleaner.setBio(dto.getBio());
         cleaner.setCity(dto.getCity());
-        cleaner.setHourlyRate(dto.getHourlyRate());
+        cleaner.setPricePerSqm(dto.getPricePerSqm());
+        cleaner.setActionRadiusKm(dto.getActionRadiusKm() != null ? dto.getActionRadiusKm() : 30);
         cleaner.setExperienceYears(dto.getExperienceYears());
 
         return authService.registerCleanerWithIds(cleaner, dto.getCategoryIds(), dto.getSkillIds())

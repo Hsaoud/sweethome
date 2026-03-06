@@ -24,6 +24,55 @@
         </div>
     </div>
 
+    <!-- Bookings -->
+    <div class="bg-white rounded-lg shadow overflow-hidden mb-8">
+        <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+            <h3 class="text-lg font-medium text-gray-900">Vos Réservations</h3>
+            <span class="text-sm text-gray-500">Total: {{ bookings.length }}</span>
+        </div>
+        <div class="divide-y divide-gray-200">
+            @for (booking of bookings; track booking.id) {
+            <div class="p-6">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center">
+                        <div class="ml-3">
+                            <div class="text-lg font-bold text-gray-900">Cleaner: {{ booking.cleaner.firstName }} {{
+                                booking.cleaner.lastName }}</div>
+                            <div class="text-sm text-gray-500 mt-1">
+                                <span class="font-semibold text-gray-900">Date:</span> {{ booking.date | date }}
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <span class="font-semibold text-gray-900">Horaire:</span> {{ booking.startTime }} - {{
+                                booking.endTime }}
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <span class="font-semibold text-gray-900">Surface:</span> {{ booking.surface }} m²
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <span class="px-3 py-1 text-sm font-semibold rounded-full" [ngClass]="{
+                              'bg-yellow-100 text-yellow-800': booking.status === 'PENDING',
+                              'bg-green-100 text-green-800': booking.status === 'ACCEPTED' || booking.status === 'COMPLETED',
+                              'bg-red-100 text-red-800': booking.status === 'REJECTED' || booking.status === 'CANCELLED'
+                          }">
+                            {{ booking.status }}
+                        </span>
+                        <div class="mt-4 text-2xl font-bold text-primary-600">
+                            €{{ booking.totalPrice }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+            @if (bookings.length === 0) {
+            <div class="p-6 text-center text-gray-500 text-lg">
+                Vous n'avez pas encore de réservations.
+            </div>
+            }
+        </div>
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Reviews Given -->
         <div class="bg-white rounded-lg shadow overflow-hidden">
