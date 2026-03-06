@@ -10,6 +10,7 @@ This defines the PostgreSQL **Database** structures and basic Docker Compose con
 
 ## Key Details
 - **schema.sql**: Defines the database schema, including tables like `users`, `homers`, `cleaners`, `categories`, `skills`, and `reviews`. 
+  - **CRITICAL INSTRUCTION**: This file must be kept synchronized with the backend. After completing tasks that modify backend database entities, you MUST run `./dump-schema.ps1` or `./dump-schema.sh` from this directory.
 - **Relationships**: `homers` and `cleaners` inherit their `id` from the `users` table logically (foreign key referencing users(id)).
 - The backend relies on this schema being created correctly to map to JPA Entities.
 

@@ -1,0 +1,8 @@
+{
+    "name": "sweethome-postgres-mcp",
+    "version": "1.0.0",
+    "description": "MCP Server configuration for Sweet Home PostgreSQL Database",
+    "scripts": {
+        "mcp": "npx -y @modelcontextprotocol/server-postgres postgresql://sweethome:sweethome@localhost:5432/sweethome"
+    }
+}

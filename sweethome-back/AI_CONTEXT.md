@@ -27,3 +27,7 @@ It serves REST APIs to the Angular frontend and connects to a PostgreSQL databas
 - Use **JUnit 5** and **Mockito** for unit testing (`@ExtendWith(MockitoExtension.class)`).
 - Run tests via `./mvnw test`.
 - Do not integrate DB for unit testing if possible; use mocks. If DB testing is required, use H2 memory DB or Testcontainers.
+
+## Database Schema Synchronization
+**CRITICAL INSTRUCTION**: Whenever you create or modify JPA Entities that change the underlying database structure in `sweethome-postgres`, you MUST dump the new schema into `schema.sql` to keep the reference script up to date.
+- Use `cd ../sweethome-postgres && ./dump-schema.ps1` (on Windows) or `./dump-schema.sh` (on Linux/Mac) when the backend application is running to export the schema.
