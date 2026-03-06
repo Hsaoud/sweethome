@@ -1,0 +1,12 @@
+{
+    "name": "sweethome-e2e",
+    "version": "1.0.0",
+    "description": "Sweet Home Playwright Tests",
+    "scripts": {
+        "test": "playwright test"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.42.1",
+        "@types/node": "^20.11.24"
+    }
+}

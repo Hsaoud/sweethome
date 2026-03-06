@@ -1,0 +1,91 @@
+﻿
+Running 8 tests using 8 workers
+
+[1A[2K[1/8] [chromium] ÔÇ║ tests\home.spec.ts:20:9 ÔÇ║ Home Page functionality ÔÇ║ should navigate to cleaner registration when clicking Become a Cleaner
+[1A[2K[2/8] [chromium] ÔÇ║ tests\home.spec.ts:5:9 ÔÇ║ Home Page functionality ÔÇ║ should have expected titles and call to actions
+[1A[2K[3/8] [chromium] ÔÇ║ tests\home.spec.ts:33:9 ÔÇ║ Home Page functionality ÔÇ║ should navigate to cleaners list when clicking Find Cleaners
+[1A[2K[4/8] [chromium] ÔÇ║ tests\login.spec.ts:20:9 ÔÇ║ Login Flow ÔÇ║ should display error message on invalid credentials
+[1A[2K[5/8] [chromium] ÔÇ║ tests\login.spec.ts:5:9 ÔÇ║ Login Flow ÔÇ║ should present the login form correctly
+[1A[2K[6/8] [chromium] ÔÇ║ tests\register.spec.ts:23:9 ÔÇ║ Homer Registration Flow ÔÇ║ should show validation error when submitting empty form
+[1A[2K[7/8] [chromium] ÔÇ║ tests\register.spec.ts:34:9 ÔÇ║ Homer Registration Flow ÔÇ║ should attempt to register a homer
+[1A[2K[8/8] [chromium] ÔÇ║ tests\register.spec.ts:5:9 ÔÇ║ Homer Registration Flow ÔÇ║ should have all required fields on the homer registration page
+[1A[2K  1) [chromium] ÔÇ║ tests\home.spec.ts:20:9 ÔÇ║ Home Page functionality ÔÇ║ should navigate to cleaner registration when clicking Become a Cleaner 
+
+    Error: locator.click: Error: strict mode violation: locator('text=Become a Cleaner') resolved to 2 elements:
+        1) <a _ngcontent-ng-c1004298489="" routerlink="/register/cleaner" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary-700 bg-primary-100 hover:bg-primary-200 md:py-4 md:text-lg md:px-10"> Become a Cleaner </a> aka getByRole('main').getByText('Become a Cleaner')
+        2) <a _ngcontent-ng-c513185718="" routerlink="/register/cleaner" class="text-base text-gray-500 hover:text-gray-900">Become a Cleaner</a> aka getByRole('contentinfo').getByText('Become a Cleaner')
+
+    Call log:
+    [2m  - waiting for locator('text=Become a Cleaner')[22m
+
+
+      22 |
+      23 |         const becomeCleanerBtn = page.locator('text=Become a Cleaner');
+    > 24 |         await becomeCleanerBtn.click();
+         |                                ^
+      25 |
+      26 |         // Ensure the URL changed appropriately
+      27 |         await expect(page).toHaveURL(/.*register\/cleaner/);
+        at C:\Users\hiche\Documents\Sweet Home\sweethome\sweethome-selenium\tests\home.spec.ts:24:32
+
+    Error Context: test-results\home-Home-Page-functionali-a46a3-n-clicking-Become-a-Cleaner-chromium\error-context.md
+
+
+[1A[2K  2) [chromium] ÔÇ║ tests\home.spec.ts:33:9 ÔÇ║ Home Page functionality ÔÇ║ should navigate to cleaners list when clicking Find Cleaners 
+
+    Error: locator.click: Error: strict mode violation: locator('text=Find Cleaners') resolved to 3 elements:
+        1) <a href="/cleaners" routerlink="/cleaners" _ngcontent-ng-c3678461864="" ng-reflect-router-link="/cleaners" routerlinkactive="text-primary-600 border-primary-500" ng-reflect-router-link-active="text-primary-600 border-primar" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"> Find Cleaners </a> aka getByRole('link', { name: 'Find Cleaners' })
+        2) <a routerlink="/cleaners" _ngcontent-ng-c1004298489="" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 md:py-4 md:text-lg md:px-10"> Find Cleaners </a> aka getByRole('main').getByText('Find Cleaners')
+        3) <a routerlink="/cleaners" _ngcontent-ng-c513185718="" class="text-base text-gray-500 hover:text-gray-900">Find Cleaners</a> aka getByRole('contentinfo').getByText('Find Cleaners')
+
+    Call log:
+    [2m  - waiting for locator('text=Find Cleaners')[22m
+
+
+      35 |
+      36 |         const findCleanersBtn = page.locator('text=Find Cleaners');
+    > 37 |         await findCleanersBtn.click();
+         |                               ^
+      38 |
+      39 |         // Ensure the URL changed appropriately
+      40 |         await expect(page).toHaveURL(/.*cleaners/);
+        at C:\Users\hiche\Documents\Sweet Home\sweethome\sweethome-selenium\tests\home.spec.ts:37:31
+
+    Error Context: test-results\home-Home-Page-functionali-5a315-when-clicking-Find-Cleaners-chromium\error-context.md
+
+
+[1A[2K  3) [chromium] ÔÇ║ tests\home.spec.ts:5:9 ÔÇ║ Home Page functionality ÔÇ║ should have expected titles and call to actions 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Find Cleaners')
+    Expected: visible
+    Error: strict mode violation: locator('text=Find Cleaners') resolved to 3 elements:
+        1) <a href="/cleaners" routerlink="/cleaners" _ngcontent-ng-c3678461864="" ng-reflect-router-link="/cleaners" routerlinkactive="text-primary-600 border-primary-500" ng-reflect-router-link-active="text-primary-600 border-primar" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"> Find Cleaners </a> aka getByRole('link', { name: 'Find Cleaners' })
+        2) <a routerlink="/cleaners" _ngcontent-ng-c1004298489="" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 md:py-4 md:text-lg md:px-10"> Find Cleaners </a> aka getByRole('main').getByText('Find Cleaners')
+        3) <a routerlink="/cleaners" _ngcontent-ng-c513185718="" class="text-base text-gray-500 hover:text-gray-900">Find Cleaners</a> aka getByRole('contentinfo').getByText('Find Cleaners')
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Find Cleaners')[22m
+
+
+      12 |         // Check for the call to action buttons
+      13 |         const findCleanersBtn = page.locator('text=Find Cleaners');
+    > 14 |         await expect(findCleanersBtn).toBeVisible();
+         |                                       ^
+      15 |
+      16 |         const becomeCleanerBtn = page.locator('text=Become a Cleaner');
+      17 |         await expect(becomeCleanerBtn).toBeVisible();
+        at C:\Users\hiche\Documents\Sweet Home\sweethome\sweethome-selenium\tests\home.spec.ts:14:39
+
+    Error Context: test-results\home-Home-Page-functionali-38312--titles-and-call-to-actions-chromium\error-context.md
+
+
+[1A[2K  3 failed
+    [chromium] ÔÇ║ tests\home.spec.ts:5:9 ÔÇ║ Home Page functionality ÔÇ║ should have expected titles and call to actions 
+    [chromium] ÔÇ║ tests\home.spec.ts:20:9 ÔÇ║ Home Page functionality ÔÇ║ should navigate to cleaner registration when clicking Become a Cleaner 
+    [chromium] ÔÇ║ tests\home.spec.ts:33:9 ÔÇ║ Home Page functionality ÔÇ║ should navigate to cleaners list when clicking Find Cleaners 
+  5 passed (6.3s)
+
+[36m  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.[39m

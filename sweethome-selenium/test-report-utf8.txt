@@ -1,0 +1,4 @@
+﻿
+Running 8 tests using 8 workers
+
+  Ô£ô  1 [chromium] ÔÇ║ tests\home.spec.ts:5:9 ÔÇ║ Home Page functionality ÔÇ║ should have expected titles and call to actions (629ms)

@@ -19,7 +19,10 @@ It serves REST APIs to the Angular frontend and connects to a PostgreSQL databas
 - `src/main/java/com/sweet/home/sweethome/dto`: Data Transfer Objects for API payloads.
 - `src/main/java/com/sweet/home/sweethome/security`: JWT or session-based security configuration.
 
-## Testing Strategy
+## Testing Strategy & TDD Constraint
+**CRITICAL INSTRUCTION**: All future evolutions, feature developments, and bugfixes MUST be implemented using the **Test-Driven Development (TDD)** methodology.
+- Write the unit or component test *before* implementing the actual logic or feature.
+- Ensure the test fails first, then write the minimal code required to make it pass, and finally refactor.
 - Use **JUnit 5** and **Mockito** for unit testing (`@ExtendWith(MockitoExtension.class)`).
 - Run tests via `./mvnw test`.
 - Do not integrate DB for unit testing if possible; use mocks. If DB testing is required, use H2 memory DB or Testcontainers.

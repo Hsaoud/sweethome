@@ -17,7 +17,10 @@ This is the **Frontend** Single Page Application (SPA) for the Sweet Home projec
 - `src/app/models`: Interfaces/types corresponding to backend DTOs.
 - `src/app/app.routes.ts`: Main routing configuration for the application.
 
-## Testing Strategy
+## Testing Strategy & TDD Constraint
+**CRITICAL INSTRUCTION**: All future evolutions, feature developments, and bugfixes MUST be implemented using the **Test-Driven Development (TDD)** methodology.
+- Write the unit or component test *before* implementing the actual logic or feature.
+- Ensure the test fails first, then write the minimal code required to make it pass, and finally refactor.
 - Unit tests run on **Jasmine & Karma**.
 - Component tests should check DOM logic, using `TestBed` and `fixture.detectChanges()`.
 - Service tests use `HttpTestingController` to mock API responses.
