@@ -1,0 +1,9 @@
+- Titre : [Gestion des Annulations et Politique de Remboursement]
+- Contexte : Suite à l'implémentation de la réservation (Cycle 2) et du paiement sécurisé avec séquestre (Cycle 6), il est désormais impératif de définir un cadre contractuel et financier pour les annulations. Cela permet de protéger le revenu des Cleaners contre les désistements de dernière minute et de garantir la transparence pour les Homers.
+- User Story : En tant qu'utilisateur (Homer ou Cleaner), je veux pouvoir annuler une réservation de manière encadrée afin de gérer les imprévus tout en respectant une politique d'indemnisation équitable et automatisée.
+- Règles Métier :
+    1. **Niveaux de Politique** : Le Cleaner peut choisir entre trois niveaux de politique d'annulation sur son profil (Flexible, Modérée, Stricte).
+    2. **Calcul de Remboursement** : Le système doit calculer automatiquement la part remboursée au Homer et la part versée au Cleaner comme dédommagement en fonction de la date de l'annulation par rapport à la date de prestation (ex: 100% remboursé si > 48h, 50% si entre 24h et 48h, 0% si < 24h).
+    3. **Annulation par le Cleaner** : Si le Cleaner annule, le Homer est remboursé à 100% (incluant les frais de service) et le Cleaner reçoit un avertissement automatique ou une pénalité sur son score de fiabilité.
+    4. **Frais de Service** : Les frais de service de la plateforme restent acquis par Sweet-Home en cas d'annulation par le Homer, sauf en cas de délai très large (> 72h).
+    5. **Mise à jour des flux** : L'annulation doit déclencher automatiquement la libération du créneau dans le calendrier (Cycle 9) et l'ordre de virement via le système de séquestre (Cycle 6).

@@ -218,3 +218,6 @@ Nouvelles modifications pour : [Système de Synchronisation Calendrier Externe (
 
 -- Ajout au Cycle 25 --
 Nouvelles modifications pour : [Système de Suivi de l'Arrivée du Prestataire en Temps Réel (Live Tracking)]
+
+-- Ajout au Cycle 26 --
+Nouvelles modifications pour : [Gestion des Annulations et Politique de Remboursement]
