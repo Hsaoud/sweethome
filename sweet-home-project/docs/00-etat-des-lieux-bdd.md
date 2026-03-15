@@ -236,3 +236,6 @@ Nouvelles modifications pour : [Génération Automatisée et Signature Électron
 
 -- Ajout au Cycle 31 --
 Nouvelles modifications pour : [Optimisation de Tournée et Calcul d'Itinéraire pour les Cleaners]
+
+-- Ajout au Cycle 32 --
+Nouvelles modifications pour : [Système de Gestion des Frais Professionnels et Indemnités Kilométriques]
