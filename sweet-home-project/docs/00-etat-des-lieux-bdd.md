@@ -221,3 +221,6 @@ Nouvelles modifications pour : [Système de Suivi de l'Arrivée du Prestataire e
 
 -- Ajout au Cycle 26 --
 Nouvelles modifications pour : [Gestion des Annulations et Politique de Remboursement]
+
+-- Ajout au Cycle 27 --
+Nouvelles modifications pour : [Gestion des Réservations Multi-Prestataires (Équipes)]
