@@ -17,3 +17,4 @@
 - Cycle 13 : [Tableau de Bord Analytique et Suivi des Revenus pour les Cleaners] (Développée et Testée)
 - Cycle 14 : [Système de Parrainage et de Fidélisation (Growth Engine)] (Développée et Testée)
 - Cycle 15 : [Système de Check-in/Check-out et Preuve de Prestation par Photo] (Développée et Testée)
+- Cycle 16 : [Checklist de Prestation Personnalisée et Rapport de Mission] (Développée et Testée)

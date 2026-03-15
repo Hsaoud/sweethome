@@ -1,0 +1,11 @@
+- Titre : Système de Pourboire (Tipping) Post-Prestation
+- Contexte : Le Cycle 16 a introduit le rapport de mission et la checklist, permettant au Homer de constater précisément et visuellement la qualité du travail accompli. La suite logique est de capitaliser sur ce moment de satisfaction ("Wow effect") pour introduire un système de gratification financière. Cela finalise parfaitement le workflow de fin de prestation (après le rapport, le check-out et l'évaluation) et constitue un levier majeur de fidélisation pour les meilleurs prestataires.
+- User Story : En tant que Homer, je veux pouvoir verser un pourboire dématérialisé à mon Cleaner immédiatement après la consultation de son rapport de mission, afin de le récompenser pour l'excellence de son service en toute simplicité.
+- Règles Métier :
+  - L'interface d'incitation au pourboire doit s'afficher automatiquement juste après la validation du rapport de mission (Cycle 16) et le dépôt de l'évaluation (Cycle 5).
+  - Le Homer doit se voir proposer des montants prédéfinis (ex: 2€, 5€, 10€) ainsi qu'une option de saisie libre.
+  - Le paiement du pourboire s'appuie sur l'empreinte bancaire ou le moyen de paiement déjà enregistré (Cycle 6) pour un processus "en un clic".
+  - La plateforme ne prend aucune commission sur les pourboires : 100% du montant est reversé au Cleaner.
+  - Le Homer dispose d'un délai de 7 jours maximum après le Check-out pour allouer ce pourboire.
+  - Les pourboires doivent apparaître comme une source de revenus distincte dans le tableau de bord analytique du Cleaner (Cycle 13).
+  - Le montant du pourboire doit être explicitement détaillé sur une ligne dédiée lors de la génération de la facture finale et des attestations (Cycle 12).

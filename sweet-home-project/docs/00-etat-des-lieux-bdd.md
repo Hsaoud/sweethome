@@ -191,3 +191,6 @@ Nouvelles modifications pour : [Système de Check-in/Check-out et Preuve de Pres
 
 -- Ajout au Cycle 16 --
 Nouvelles modifications pour : [Checklist de Prestation Personnalisée et Rapport de Mission]
+
+-- Ajout au Cycle 17 --
+Nouvelles modifications pour : Système de Pourboire (Tipping) Post-Prestation
