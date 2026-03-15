@@ -173,3 +173,6 @@ Nouvelles modifications pour : [Gestion du Calendrier de Disponibilités et des 
 
 -- Ajout au Cycle 10 --
 Nouvelles modifications pour : [Centre de Résolution des Litiges et Gestion des Sinistres]
+
+-- Ajout au Cycle 11 --
+Nouvelles modifications pour : [Système de Notifications Centralisé et Alertes Multi-Canal]
