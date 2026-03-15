@@ -16,3 +16,4 @@
 - Cycle 12 : [Génération Automatisée de Factures et Attestations Fiscales] (Développée et Testée)
 - Cycle 13 : [Tableau de Bord Analytique et Suivi des Revenus pour les Cleaners] (Développée et Testée)
 - Cycle 14 : [Système de Parrainage et de Fidélisation (Growth Engine)] (Développée et Testée)
+- Cycle 15 : [Système de Check-in/Check-out et Preuve de Prestation par Photo] (Développée et Testée)

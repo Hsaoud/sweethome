@@ -188,3 +188,6 @@ Nouvelles modifications pour : [Système de Parrainage et de Fidélisation (Grow
 
 -- Ajout au Cycle 15 --
 Nouvelles modifications pour : [Système de Check-in/Check-out et Preuve de Prestation par Photo]
+
+-- Ajout au Cycle 16 --
+Nouvelles modifications pour : [Checklist de Prestation Personnalisée et Rapport de Mission]
