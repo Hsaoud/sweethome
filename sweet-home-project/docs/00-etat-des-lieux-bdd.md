@@ -206,3 +206,6 @@ Nouvelles modifications pour : [Gestion des Remplacements et Continuité de Serv
 
 -- Ajout au Cycle 21 --
 Nouvelles modifications pour : [Compte Famille et Co-Gestion du Foyer]
+
+-- Ajout au Cycle 22 --
+Nouvelles modifications pour : [Gestion de la Logistique Matérielle et des Produits d'Entretien]

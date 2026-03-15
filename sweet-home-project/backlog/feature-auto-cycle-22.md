@@ -1,0 +1,9 @@
+- Titre : [Gestion de la Logistique Matérielle et des Produits d'Entretien]
+- Contexte : La plateforme gère désormais les accès sécurisés, les remplacements et les comptes multi-logements. Pour professionnaliser davantage la prestation et éviter les litiges ou les échecs de mission (ex: aspirateur en panne, absence de produits spécifiques pour surfaces fragiles), il est nécessaire de formaliser la logistique matérielle avant le début de la prestation.
+- User Story : En tant qu'utilisateur (Homer ou Cleaner), je veux définir précisément qui fournit le matériel et les produits d'entretien afin de garantir que la mission puisse être réalisée avec les outils appropriés et sans imprévu.
+- Règles Métier :
+    1. **Inventaire du Logement** : Le Homer doit pouvoir lister pour chaque logement les équipements lourds mis à disposition (Aspirateur, Escabeau, Nettoyeur vapeur, etc.).
+    2. **Configuration Cleaner** : Le Cleaner doit déclarer dans son profil s'il apporte son propre kit de produits d'entretien et s'il dispose de petit matériel portatif (chiffons microfibres, brosses).
+    3. **Alerte de Compatibilité** : Lors de la réservation, le système doit générer une alerte si un équipement indispensable (ex: aspirateur) n'est fourni ni par le Homer ni par le Cleaner.
+    4. **Spécificités de Surfaces** : Le Homer peut enregistrer des "Notes de soin" pour des matériaux spécifiques (Marbre, Parquet brut, Cuir) nécessitant des produits ou une attention particulière.
+    5. **Engagement de Conformité** : Le Cleaner doit valider la lecture des spécificités de surfaces et de la liste du matériel disponible lors de l'acceptation de la réservation.
