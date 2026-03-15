@@ -149,3 +149,6 @@ Nouvelles modifications pour : Moteur de Recherche et Filtrage des Cleaners
 
 -- Ajout au Cycle 2 --
 Nouvelles modifications pour : [Réservation d'une Prestation de Ménage]
+
+-- Ajout au Cycle 3 --
+Nouvelles modifications pour : Feature Cycle 3

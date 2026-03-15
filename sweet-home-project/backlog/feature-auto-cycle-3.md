@@ -1,10 +1,16 @@
-- Titre : Moteur de recherche et filtrage des Cleaners
-- Contexte : Maintenant que les profils de prestataires (Cleaners) sont configurés avec leurs tarifs, compétences et zones d'intervention dans la base de données, la suite logique est de permettre aux clients (Homers) de les trouver via un outil de recherche performant pour initier le tunnel de réservation.
-- User Story : En tant que Homer, je veux rechercher des Cleaners par ville, catégorie et tarif afin de trouver le prestataire idéal disponible près de chez moi.
-- Règles Métier :
-    1. La recherche doit permettre un filtrage par ville (basé sur `cleaners.city`).
-    2. Possibilité de filtrer par catégorie de service (via la table `categories`).
-    3. Les résultats ne doivent afficher que les Cleaners ayant le statut `available = true`.
-    4. Les profils doivent être triés par défaut par leur note moyenne (calculée via la table `reviews`).
-    5. Le moteur doit vérifier que la position du Homer (latitude/longitude) est incluse dans le `action_radius_km` du Cleaner.
-    6. Chaque résultat de recherche doit afficher : Prénom, Photo, Note moyenne, Tarif horaire et Headline.
+### [Système d'Avis et de Notation]
+
+**Contexte :**
+Avec un système de recherche et de réservation désormais opérationnel, la confiance entre les membres devient le pilier central de la plateforme. L'implémentation du système d'avis permet de boucler le cycle de vie d'une prestation en offrant une preuve sociale indispensable. Elle valorise les meilleurs prestataires (Cleaners) et sécurise les clients (Homers), conformément au modèle "Blablacar" où la réputation est la clé de l'usage.
+
+**User Story :**
+En tant qu'utilisateur (Homer ou Cleaner), je veux pouvoir laisser une note et un commentaire à l'autre partie une fois la prestation terminée, afin de contribuer à la fiabilité de la communauté et d'aider les autres membres à choisir leurs prestataires.
+
+**Règles Métier :**
+1. **Éligibilité :** Un avis ne peut être déposé que pour une réservation (`Booking`) dont le statut est strictement égal à 'COMPLETED'.
+2. **Unicité :** Chaque réservation ne peut donner lieu qu'à un seul avis par partie (le Homer note le Cleaner, et inversement).
+3. **Notation :** La note (`rating`) est un entier obligatoire compris entre 1 (très déçu) et 5 (excellent).
+4. **Commentaire :** Le texte de l'avis est obligatoire, avec une longueur minimale de 20 caractères et maximale de 1000 caractères.
+5. **Intégrité :** Un utilisateur ne peut pas déposer un avis sur son propre profil (le `reviewer_id` doit être différent du `reviewee_id`).
+6. **Visibilité :** Les avis reçus doivent être affichés chronologiquement sur le profil public de l'utilisateur concerné.
+7. **Calcul de Réputation :** La note moyenne de l'utilisateur doit être recalculée et mise à jour sur son profil (et dans les résultats de recherche pour les Cleaners) à chaque nouvelle publication d'avis.
