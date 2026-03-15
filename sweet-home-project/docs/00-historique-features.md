@@ -12,3 +12,4 @@
 - Cycle 8 : [Planification de Prestations Récurrentes (Abonnement)] (Développée et Testée)
 - Cycle 9 : [Gestion du Calendrier de Disponibilités et des Indisponibilités] (Développée et Testée)
 - Cycle 10 : [Centre de Résolution des Litiges et Gestion des Sinistres] (Développée et Testée)
+- Cycle 11 : [Système de Notifications Centralisé et Alertes Multi-Canal] (Développée et Testée)

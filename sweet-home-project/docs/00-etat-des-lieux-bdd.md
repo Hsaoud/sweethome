@@ -176,3 +176,6 @@ Nouvelles modifications pour : [Centre de Résolution des Litiges et Gestion des
 
 -- Ajout au Cycle 11 --
 Nouvelles modifications pour : [Système de Notifications Centralisé et Alertes Multi-Canal]
+
+-- Ajout au Cycle 12 --
+Nouvelles modifications pour : [Génération Automatisée de Factures et Attestations Fiscales]
