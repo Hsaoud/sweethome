@@ -179,3 +179,6 @@ Nouvelles modifications pour : [Système de Notifications Centralisé et Alertes
 
 -- Ajout au Cycle 12 --
 Nouvelles modifications pour : [Génération Automatisée de Factures et Attestations Fiscales]
+
+-- Ajout au Cycle 13 --
+Nouvelles modifications pour : [Tableau de Bord Analytique et Suivi des Revenus pour les Cleaners]
