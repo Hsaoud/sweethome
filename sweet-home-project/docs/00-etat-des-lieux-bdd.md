@@ -146,3 +146,6 @@ Nouvelles modifications pour : Complétion du Profil et Spécialisation (Onboard
 
 -- Ajout au Cycle 1 --
 Nouvelles modifications pour : Moteur de Recherche et Filtrage des Cleaners
+
+-- Ajout au Cycle 2 --
+Nouvelles modifications pour : [Réservation d'une Prestation de Ménage]

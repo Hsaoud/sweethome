@@ -1,93 +1,87 @@
-# Spécifications Fonctionnelles : Moteur de recherche et filtrage des Cleaners
+I will begin by researching the current data model and business logic to ensure the new feature is perfectly integrated into the existing ecosystem.
 
-## 1. Modèle Conceptuel de Données (MCD)
+Voici le livrable structuré pour la feature **Réservation d'une Prestation de Ménage**, conforme aux standards de l'analyse métier.
+
+# Analyse Métier : Réservation d'une Prestation de Ménage
+
+## 1. Modèle Conceptuel de Données (MCD) mis à jour
+Le modèle inclut la relation pivot entre l'Homer et le Cleaner via l'entité `Booking`.
 
 ```mermaid
 erDiagram
-    USER ||--o| HOMER : "est_un"
-    USER ||--o| CLEANER : "est_un"
-    CLEANER }|--o{ CATEGORY : "appartient_a"
-    CLEANER ||--o{ REVIEW : "recoit"
+    HOMER ||--o{ BOOKING : "initie"
+    CLEANER ||--o{ BOOKING : "reçoit"
+    
+    HOMER {
+        bigint id PK
+        varchar address "Obligatoire pour réserver"
+        varchar city "Obligatoire pour réserver"
+        varchar postal_code "Obligatoire pour réserver"
+    }
 
     CLEANER {
-        string first_name
-        string city
-        string profile_picture
-        float hourly_rate
-        int experience_years
-        boolean available
+        bigint id PK
+        numeric hourly_rate "Base du calcul du prix"
     }
 
-    HOMER {
-        string last_search_city
-    }
-
-    CATEGORY {
-        string name
-        string description
-    }
-
-    REVIEW {
-        int rating
-        string comment
+    BOOKING {
+        bigint id PK
+        date date "Date de l'intervention"
+        time start_time "Heure de début"
+        time end_time "Heure de fin"
+        integer surface "Surface en m2"
+        numeric total_price "Calculé : hourly_rate * durée"
+        varchar status "Initial : PENDING"
+        timestamp created_at
     }
 ```
 
-## 2. Diagramme de flux (BPMN)
+## 2. Diagramme de Flux (BPMN)
+Ce flux décrit le processus nominal et les contrôles de validité avant la persistance.
 
 ```mermaid
 graph TD
-    Start((Début)) --> InputCity[Saisie de la ville]
-    InputCity --> OptFilter{Filtrer par catégorie ?}
+    A[Homer sur le profil d'un Cleaner] --> B{Connecté & Rôle HOMER?}
+    B -- Non --> C[Redirection vers Login]
+    B -- Oui --> D{Profil complet?}
+    D -- Non --> E[Alerte : Adresse manquante]
+    E --> F[Lien vers Edition Profil]
+    D -- Oui --> G[Saisie Formulaire Réservation]
     
-    OptFilter -- Oui --> SelectCat[Sélection d'une ou plusieurs catégories]
-    SelectCat --> Search[Lancer la recherche]
+    G --> H[Calcul dynamique du prix]
+    H --> I[Affichage du Total Prévisionnel]
     
-    OptFilter -- Non --> Search
+    I --> J{Validation par l'Homer}
+    J --> K{Cohérence temporelle?}
     
-    Search --> SystemFilter[Système : Filtrer available = true]
-    SystemFilter --> DefaultSort[Système : Tri par tarif horaire croissant]
+    K -- Erreur --> L[Message : Horaires invalides]
+    L --> G
     
-    DefaultSort --> Display[Affichage des cartes Cleaners]
-    
-    Display --> UserSort{Changer le tri ?}
-    UserSort -- Expérience --> SortExp[Tri par expérience décroissant]
-    UserSort -- Tarif --> DefaultSort
-    
-    SortExp --> Display
-    Display --> End((Fin))
+    K -- Valide --> M[Création Booking : Status PENDING]
+    M --> N[Affichage Confirmation]
 ```
 
-## 3. Critères d'Acceptation
+## 3. Critères d'Acceptation (Gherkin)
 
-### Scénario 1 : Recherche nominale par ville
-**Given** un Homer connecté sur la page de recherche  
-**When** il saisit la ville "Paris"  
-**Then** le système affiche uniquement les Cleaners dont le champ `city` est "Paris"  
-**And** le système exclut automatiquement tous les Cleaners dont `available` est `false`  
-**And** les résultats sont triés par `hourly_rate` du moins cher au plus cher.
+### Scénario 1 : Calcul automatique du prix prévisionnel
+**Given** un Homer connecté consultant le profil d'un Cleaner ayant un tarif de 20€/h  
+**When** l'Homer saisit une intervention de 09:00 à 11:00  
+**Then** le système affiche un montant total prévisionnel de 40.00€  
 
-### Scénario 2 : Filtrage par catégories multiples
-**Given** une liste de résultats pour la ville "Lyon"  
-**When** le Homer sélectionne les catégories "Repassage" et "Nettoyage Vitres"  
-**Then** le système affiche uniquement les Cleaners liés à au moins une de ces deux catégories  
-**And** les critères de disponibilité (available = true) restent appliqués.
+### Scénario 2 : Blocage pour profil incomplet
+**Given** un Homer connecté dont l'adresse n'est pas renseignée dans son profil  
+**When** il tente d'accéder au formulaire de réservation sur le profil d'un Cleaner  
+**Then** le système affiche un message d'erreur indiquant que l'adresse (rue, ville, code postal) est requise pour réserver  
+**And** le bouton de validation est désactivé  
 
-### Scénario 3 : Changement de l'ordre de tri
-**Given** une liste de résultats affichée  
-**When** le Homer sélectionne l'option de tri "Expérience"  
-**Then** la liste est réorganisée pour afficher les Cleaners ayant le plus grand nombre de `experience_years` en premier.
+### Scénario 3 : Validation de la cohérence temporelle
+**Given** un Homer sur le formulaire de réservation  
+**When** il saisit une heure de fin (10:00) antérieure ou égale à l'heure de début (11:00)  
+**Then** le système empêche la soumission  
+**And** un message d'erreur "L'heure de fin doit être postérieure à l'heure de début" s'affiche  
 
-### Scénario 4 : Intégrité des informations affichées
-**Given** un résultat de recherche affiché sous forme de carte  
-**Then** la carte doit obligatoirement présenter :
-- Le `first_name` du Cleaner
-- La `profile_picture`
-- La `city`
-- Le `hourly_rate`
-- La note moyenne (moyenne arithmétique des `rating` de la table `reviews` liée).
-
-### Scénario 5 : Aucun résultat trouvé
-**Given** un Homer effectuant une recherche dans une ville sans prestataires disponibles  
-**When** il valide sa recherche  
-**Then** le système affiche un message explicite : "Aucun Cleaner disponible dans cette zone pour le moment".
+### Scénario 4 : Persistance d'une demande valide
+**Given** un Homer avec un profil complet et des données de réservation valides  
+**When** il clique sur "Confirmer la réservation"  
+**Then** une nouvelle entrée est créée dans la base de données avec le statut "PENDING"  
+**And** l'Homer reçoit une confirmation visuelle du succès de sa demande
