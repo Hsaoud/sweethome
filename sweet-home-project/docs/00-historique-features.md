@@ -10,3 +10,4 @@
 - Cycle 6 : [Système de Paiement Sécurisé et Séquestre des Fonds] (Développée et Testée)
 - Cycle 7 : [Vérification d'Identité (KYC) et Certification des Profils] (Développée et Testée)
 - Cycle 8 : [Planification de Prestations Récurrentes (Abonnement)] (Développée et Testée)
+- Cycle 9 : [Gestion du Calendrier de Disponibilités et des Indisponibilités] (Développée et Testée)

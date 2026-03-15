@@ -1,0 +1,10 @@
+- Titre : [Centre de Résolution des Litiges et Gestion des Sinistres]
+- Contexte : Avec l'activation du paiement sécurisé par séquestre (Cycle 6) et la vérification d'identité (Cycle 7), la plateforme agit désormais comme un tiers de confiance robuste. Pour parfaire le cycle de vie d'une prestation, il est impératif de fournir un mécanisme structuré de résolution des différends (absence du prestataire, casse, prestation incomplète) permettant de suspendre la libération des fonds et d'assurer une médiation juste, conformément au modèle de sécurité des grandes plateformes P2P.
+- User Story : En tant qu'utilisateur (Homer ou Cleaner), je veux pouvoir signaler un incident lié à une prestation afin de suspendre le paiement séquestré et de solliciter une médiation pour résoudre le désaccord de manière équitable.
+- Règles Métier :
+    1. Le Homer peut ouvrir un litige via un bouton "Signaler un problème" dans une fenêtre stricte de 24h après la fin théorique de la prestation, à condition que le statut du `Booking` soit `PAID_ESCROW`.
+    2. L'ouverture d'un litige change le statut du `Booking` en `DISPUTED` et bloque immédiatement tout reversement automatique (Payout) vers le `CLEANER_WALLET`.
+    3. Le formulaire de signalement doit obliger la sélection d'un motif (ex: "Non-présentation", "Qualité insuffisante", "Dommages matériels") et l'ajout d'une description détaillée (avec option d'upload de photos).
+    4. Le Cleaner est immédiatement notifié par la messagerie interne et dispose d'un délai de 48h pour apporter une réponse contradictoire ou proposer une résolution amiable (ex: remboursement partiel).
+    5. Un utilisateur avec le rôle `ADMIN` accède à une interface de médiation dédiée pour consulter l'historique, les preuves, et trancher le litige : libération totale des fonds, remboursement total au Homer, ou répartition manuelle.
+    6. Toute décision prise par l'administrateur entraîne la mise à jour finale du statut de la réservation (`RELEASED` ou `REFUNDED`) et la clôture irrévocable du dossier de litige.

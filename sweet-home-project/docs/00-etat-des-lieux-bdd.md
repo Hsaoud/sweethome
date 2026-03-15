@@ -170,3 +170,6 @@ Nouvelles modifications pour : [Planification de Prestations Récurrentes (Abonn
 
 -- Ajout au Cycle 9 --
 Nouvelles modifications pour : [Gestion du Calendrier de Disponibilités et des Indisponibilités]
+
+-- Ajout au Cycle 10 --
+Nouvelles modifications pour : [Centre de Résolution des Litiges et Gestion des Sinistres]
