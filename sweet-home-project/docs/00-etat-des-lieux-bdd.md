@@ -212,3 +212,6 @@ Nouvelles modifications pour : [Gestion de la Logistique Matérielle et des Prod
 
 -- Ajout au Cycle 23 --
 Nouvelles modifications pour : [Système de Réservation Instantanée (Instant Booking) et Missions "Express"]
+
+-- Ajout au Cycle 24 --
+Nouvelles modifications pour : [Système de Synchronisation Calendrier Externe (Google/iCal)]
