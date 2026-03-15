@@ -25,3 +25,4 @@
 - Cycle 21 : [Compte Famille et Co-Gestion du Foyer] (Développée et Testée)
 - Cycle 22 : [Gestion de la Logistique Matérielle et des Produits d'Entretien] (Développée et Testée)
 - Cycle 23 : [Système de Réservation Instantanée (Instant Booking) et Missions "Express"] (Développée et Testée)
+- Cycle 24 : [Système de Synchronisation Calendrier Externe (Google/iCal)] (Développée et Testée)

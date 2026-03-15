@@ -215,3 +215,6 @@ Nouvelles modifications pour : [Système de Réservation Instantanée (Instant B
 
 -- Ajout au Cycle 24 --
 Nouvelles modifications pour : [Système de Synchronisation Calendrier Externe (Google/iCal)]
+
+-- Ajout au Cycle 25 --
+Nouvelles modifications pour : [Système de Suivi de l'Arrivée du Prestataire en Temps Réel (Live Tracking)]
