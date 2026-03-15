@@ -1,0 +1,9 @@
+- Titre : [Gestion des Remplacements et Continuité de Service]
+- Contexte : Suite à la mise en place des prestations récurrentes (Cycle 8) et de la gestion multi-logements (Cycle 19), la plateforme doit désormais garantir la fiabilité du service. L'absence imprévue d'un prestataire est le principal point de friction pour les utilisateurs réguliers. Automatiser le remplacement permet de maintenir la confiance sans intervention humaine du support.
+- User Story : En tant que Homer, je veux que la plateforme me propose automatiquement un remplaçant qualifié en cas d'indisponibilité de mon cleaner habituel afin d'assurer la continuité de l'entretien de mon domicile sans avoir à recommencer mes recherches.
+- Règles Métier :
+    - Lorsqu'un Cleaner déclare une absence sur une prestation confirmée, le système identifie instantanément les Cleaners disponibles dans le même secteur géographique.
+    - L'algorithme de matching priorise les remplaçants ayant un score de notation (Cycle 5) et des compétences (Cycle 1) au moins équivalents au prestataire initial.
+    - Le Homer reçoit une notification prioritaire lui permettant de valider le profil du remplaçant suggéré ou de demander un remboursement sans frais.
+    - En cas de validation, les protocoles d'accès (Cycle 18) et la checklist personnalisée (Cycle 16) sont automatiquement transférés au remplaçant pour la durée unique de la mission.
+    - Un "Badge de Fiabilité" est instauré pour les Cleaners acceptant régulièrement des missions de remplacement de dernière minute.

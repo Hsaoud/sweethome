@@ -200,3 +200,6 @@ Nouvelles modifications pour : [Gestion des Modes d'Accès et Protocoles d'Entr�
 
 -- Ajout au Cycle 19 --
 Nouvelles modifications pour : [Gestion Multi-Logements pour les Homers]
+
+-- Ajout au Cycle 20 --
+Nouvelles modifications pour : [Gestion des Remplacements et Continuité de Service]
