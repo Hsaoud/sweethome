@@ -30,3 +30,4 @@
 - Cycle 26 : [Gestion des Annulations et Politique de Remboursement] (Développée et Testée)
 - Cycle 27 : [Gestion des Réservations Multi-Prestataires (Équipes)] (Développée et Testée)
 - Cycle 28 : [Certification des Compétences et Tests de Validation Techniques] (Développée et Testée)
+- Cycle 29 : [Système de Gifting et Cartes Cadeaux Sweet-Home] (Développée et Testée)

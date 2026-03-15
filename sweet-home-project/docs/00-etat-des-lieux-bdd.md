@@ -230,3 +230,6 @@ Nouvelles modifications pour : [Certification des Compétences et Tests de Valid
 
 -- Ajout au Cycle 29 --
 Nouvelles modifications pour : [Système de Gifting et Cartes Cadeaux Sweet-Home]
+
+-- Ajout au Cycle 30 --
+Nouvelles modifications pour : [Génération Automatisée et Signature Électronique des Contrats de Prestation]
