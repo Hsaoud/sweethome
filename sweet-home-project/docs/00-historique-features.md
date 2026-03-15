@@ -6,3 +6,4 @@
 - Cycle 2 : [Réservation d'une Prestation de Ménage] (Développée et Testée)
 - Cycle 3 : Feature Cycle 3 (Développée et Testée)
 - Cycle 4 : [Système de Messagerie Interne (In-App Messaging)] (Développée et Testée)
+- Cycle 5 : [Système de Notation et d'Évaluation des Prestations] (Développée et Testée)

@@ -158,3 +158,6 @@ Nouvelles modifications pour : [Système de Messagerie Interne (In-App Messaging
 
 -- Ajout au Cycle 5 --
 Nouvelles modifications pour : [Système de Notation et d'Évaluation des Prestations]
+
+-- Ajout au Cycle 6 --
+Nouvelles modifications pour : [Système de Paiement Sécurisé et Séquestre des Fonds]
