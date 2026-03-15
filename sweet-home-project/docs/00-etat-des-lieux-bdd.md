@@ -194,3 +194,6 @@ Nouvelles modifications pour : [Checklist de Prestation Personnalisée et Rappor
 
 -- Ajout au Cycle 17 --
 Nouvelles modifications pour : Système de Pourboire (Tipping) Post-Prestation
+
+-- Ajout au Cycle 18 --
+Nouvelles modifications pour : [Gestion des Modes d'Accès et Protocoles d'Entrée Sécurisés]
