@@ -1,0 +1,11 @@
+- Titre : [Système de Messagerie Interne (In-App Messaging)]
+- Contexte : Avec la recherche, la réservation et le système d'avis désormais opérationnels, le cycle de vie d'une prestation est techniquement complet. Cependant, la coordination logistique (remise des clés, précisions sur le matériel, code d'entrée) manque de fluidité car elle oblige les utilisateurs à sortir de l'application. L'ajout d'une messagerie interne sécurisée, pilier de confiance du modèle "Blablacar", est l'étape indispensable pour centraliser les échanges, sécuriser les données personnelles et améliorer l'expérience utilisateur globale.
+- User Story : En tant qu'utilisateur (Homer ou Cleaner), je veux pouvoir envoyer et recevoir des messages directs suite à une demande de réservation afin de coordonner les détails pratiques de l'intervention en toute sécurité.
+- Règles Métier :
+1. **Lien avec la Réservation** : Une conversation est automatiquement créée et rattachée à chaque demande de réservation (`Booking`). L'accès à la messagerie est possible dès que le statut est `PENDING`, `ACCEPTED` ou `COMPLETED`.
+2. **Identification des Participants** : Seuls l'Homer et le Cleaner impliqués dans la réservation spécifique peuvent lire et envoyer des messages dans ce fil de discussion.
+3. **Persistance et Horodatage** : Chaque message doit être enregistré en base de données avec l'ID de l'expéditeur, le contenu textuel (max 2000 caractères) et un horodatage précis (`created_at`).
+4. **Indicateur de lecture** : Un système de statut `is_read` doit être implémenté pour permettre de notifier l'utilisateur destinataire des nouveaux messages non lus.
+5. **Notifications Dashboard** : Un badge visuel (ex: point rouge ou compteur) doit apparaître sur l'icône de messagerie du Dashboard de l'utilisateur dès qu'un nouveau message est reçu.
+6. **Tri des Échanges** : Les messages au sein d'une conversation doivent être affichés par ordre chronologique strict.
+7. **Sécurité** : Interdiction d'envoyer un message à soi-même ou à un utilisateur sans lien de réservation actif ou passé.

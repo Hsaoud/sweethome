@@ -152,3 +152,6 @@ Nouvelles modifications pour : [Réservation d'une Prestation de Ménage]
 
 -- Ajout au Cycle 3 --
 Nouvelles modifications pour : Feature Cycle 3
+
+-- Ajout au Cycle 4 --
+Nouvelles modifications pour : [Système de Messagerie Interne (In-App Messaging)]
