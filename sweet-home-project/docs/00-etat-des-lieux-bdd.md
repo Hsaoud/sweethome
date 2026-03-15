@@ -227,3 +227,6 @@ Nouvelles modifications pour : [Gestion des Réservations Multi-Prestataires (É
 
 -- Ajout au Cycle 28 --
 Nouvelles modifications pour : [Certification des Compétences et Tests de Validation Techniques]
+
+-- Ajout au Cycle 29 --
+Nouvelles modifications pour : [Système de Gifting et Cartes Cadeaux Sweet-Home]
