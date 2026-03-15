@@ -1,0 +1,10 @@
+- Titre : [Planification de Prestations Récurrentes (Abonnement)]
+- Contexte : La plateforme dispose désormais de toutes les briques de confiance (KYC) et de transaction (Paiement Sécurisé). La suite logique est de passer d'un modèle de consommation "à l'acte" vers un modèle de fidélisation par la récurrence, ce qui est le cœur de métier du service à la personne pour assurer un revenu stable aux Cleaners et une tranquillité d'esprit aux Homers.
+- User Story : En tant que Homer, je veux pouvoir programmer des passages réguliers (hebdomadaires ou bimensuels) du même Cleaner afin d'automatiser l'entretien de mon domicile sans avoir à recréer une demande manuellement chaque semaine.
+- Règles Métier : 
+    - Ajout d'un sélecteur de fréquence lors de la réservation : "Ponctuelle", "Hebdomadaire" (1x/semaine), "Bimensuelle" (toutes les 2 semaines).
+    - L'acceptation initiale du Cleaner vaut pour l'ensemble de la série récurrente.
+    - Génération automatique des créneaux dans l'agenda sur une période glissante de 8 semaines.
+    - Déclenchement automatique du processus de paiement sécurisé (séquestre) 24h avant chaque occurrence individuelle.
+    - Possibilité pour le Homer de suspendre une occurrence spécifique (ex: vacances) sans annuler l'abonnement complet, avec un préavis de 72h.
+    - Interface dédiée dans le dashboard pour gérer, modifier ou résilier l'abonnement de manière globale.

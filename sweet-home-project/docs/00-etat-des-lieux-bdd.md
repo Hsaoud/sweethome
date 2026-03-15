@@ -164,3 +164,6 @@ Nouvelles modifications pour : [Système de Paiement Sécurisé et Séquestre de
 
 -- Ajout au Cycle 7 --
 Nouvelles modifications pour : [Vérification d'Identité (KYC) et Certification des Profils]
+
+-- Ajout au Cycle 8 --
+Nouvelles modifications pour : [Planification de Prestations Récurrentes (Abonnement)]
