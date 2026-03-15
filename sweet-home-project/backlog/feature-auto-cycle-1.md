@@ -1,10 +1,10 @@
-- Titre : Complétion du Profil et Spécialisation (Onboarding Homer & Cleaner)
-- Contexte : L'authentification de base est opérationnelle, mais les utilisateurs ne sont pour l'instant que des entités génériques. Cette étape est cruciale pour structurer les données spécifiques aux deux rôles du projet (Homer et Cleaner), permettant ainsi d'alimenter le futur moteur de recherche et le système de réservation.
-- User Story : En tant qu'utilisateur nouvellement inscrit, je veux compléter mon profil en choisissant mon rôle (Homer ou Cleaner) et en saisissant mes informations spécifiques afin de pouvoir soit proposer mes services de ménage, soit rechercher un prestataire pour mon domicile.
-- Règles Métier : 
-    1. **Choix du Rôle** : L'utilisateur doit explicitement choisir entre le profil `HOMER` (client) ou `CLEANER` (prestataire).
-    2. **Données Homer** : Si le rôle est `HOMER`, la saisie de l'adresse complète (rue, ville, code postal) est obligatoire pour permettre la géolocalisation des besoins.
-    3. **Données Cleaner** : Si le rôle est `CLEANER`, l'utilisateur doit obligatoirement renseigner son tarif horaire (`hourly_rate`), sa biographie (`bio`), son périmètre d'intervention (`action_radius_km`) et sa ville.
-    4. **Spécialisation Cleaner** : Un `CLEANER` doit sélectionner au moins une catégorie de service (ex: Ménage classique, Repassage, Vitres) parmi la table `categories`.
-    5. **Géocodage** : Le système doit automatiquement convertir l'adresse saisie en coordonnées `latitude` et `longitude` dans la table `users`.
-    6. **Validation** : Le tarif horaire doit être supérieur à zéro et la biographie doit contenir un minimum de 100 caractères pour assurer la qualité des profils.
+- Titre : Moteur de Recherche et Filtrage des Cleaners
+- Contexte : Suite à la complétion des profils et à la spécialisation des utilisateurs (Cycle 1), la base de données dispose désormais des tarifs, des compétences et de la localisation des prestataires. L'étape suivante cruciale pour transformer l'application en marketplace est de permettre aux clients (Homers) de trouver et filtrer les prestataires (Cleaners) adaptés à leurs besoins.
+- User Story : En tant que Homer, je veux rechercher des Cleaners par ville et filtrer les résultats par catégorie de service et tarif afin de trouver le prestataire idéal disponible près de chez moi.
+- Règles Métier :
+1. **Filtre de Ville** : La recherche doit filtrer les Cleaners en fonction de la ville saisie (champ `city` de la table `cleaners`).
+2. **Filtrage par Catégories** : Possibilité d'affiner la recherche en sélectionnant une ou plusieurs catégories de services (via la table de jointure `cleaner_categories`).
+3. **Condition de Disponibilité** : Seuls les profils de Cleaners ayant le statut `available = true` doivent apparaître dans les résultats.
+4. **Tri des Résultats** : Par défaut, les résultats sont triés par tarif horaire (`hourly_rate`) croissant, avec une option pour trier par expérience (`experience_years`).
+5. **Affichage des Informations** : Chaque carte de résultat doit obligatoirement afficher le prénom, la photo de profil, la ville, le tarif horaire, et la note moyenne calculée (basée sur la table `reviews`).
+6. **Gestion des Cas Vides** : Afficher un message explicite "Aucun Cleaner disponible pour cette recherche" si aucun résultat ne correspond aux critères.

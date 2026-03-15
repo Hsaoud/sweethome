@@ -143,3 +143,6 @@ Nouvelles modifications pour :
 
 -- Ajout au Cycle 1 --
 Nouvelles modifications pour : Complétion du Profil et Spécialisation (Onboarding Homer & Cleaner)
+
+-- Ajout au Cycle 1 --
+Nouvelles modifications pour : Moteur de Recherche et Filtrage des Cleaners
