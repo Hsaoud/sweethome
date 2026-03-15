@@ -19,3 +19,4 @@
 - Cycle 15 : [Système de Check-in/Check-out et Preuve de Prestation par Photo] (Développée et Testée)
 - Cycle 16 : [Checklist de Prestation Personnalisée et Rapport de Mission] (Développée et Testée)
 - Cycle 17 : Système de Pourboire (Tipping) Post-Prestation (Développée et Testée)
+- Cycle 18 : [Gestion des Modes d'Accès et Protocoles d'Entrée Sécurisés] (Développée et Testée)

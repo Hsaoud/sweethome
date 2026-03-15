@@ -197,3 +197,6 @@ Nouvelles modifications pour : Système de Pourboire (Tipping) Post-Prestation
 
 -- Ajout au Cycle 18 --
 Nouvelles modifications pour : [Gestion des Modes d'Accès et Protocoles d'Entrée Sécurisés]
+
+-- Ajout au Cycle 19 --
+Nouvelles modifications pour : [Gestion Multi-Logements pour les Homers]
