@@ -233,3 +233,6 @@ Nouvelles modifications pour : [Système de Gifting et Cartes Cadeaux Sweet-Home
 
 -- Ajout au Cycle 30 --
 Nouvelles modifications pour : [Génération Automatisée et Signature Électronique des Contrats de Prestation]
+
+-- Ajout au Cycle 31 --
+Nouvelles modifications pour : [Optimisation de Tournée et Calcul d'Itinéraire pour les Cleaners]
