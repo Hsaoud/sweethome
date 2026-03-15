@@ -209,3 +209,6 @@ Nouvelles modifications pour : [Compte Famille et Co-Gestion du Foyer]
 
 -- Ajout au Cycle 22 --
 Nouvelles modifications pour : [Gestion de la Logistique Matérielle et des Produits d'Entretien]
+
+-- Ajout au Cycle 23 --
+Nouvelles modifications pour : [Système de Réservation Instantanée (Instant Booking) et Missions "Express"]

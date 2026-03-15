@@ -23,3 +23,4 @@
 - Cycle 19 : [Gestion Multi-Logements pour les Homers] (Développée et Testée)
 - Cycle 20 : [Gestion des Remplacements et Continuité de Service] (Développée et Testée)
 - Cycle 21 : [Compte Famille et Co-Gestion du Foyer] (Développée et Testée)
+- Cycle 22 : [Gestion de la Logistique Matérielle et des Produits d'Entretien] (Développée et Testée)
