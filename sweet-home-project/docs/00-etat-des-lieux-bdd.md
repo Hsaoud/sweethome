@@ -155,3 +155,6 @@ Nouvelles modifications pour : Feature Cycle 3
 
 -- Ajout au Cycle 4 --
 Nouvelles modifications pour : [Système de Messagerie Interne (In-App Messaging)]
+
+-- Ajout au Cycle 5 --
+Nouvelles modifications pour : [Système de Notation et d'Évaluation des Prestations]
