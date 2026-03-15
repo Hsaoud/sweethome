@@ -1,0 +1,10 @@
+- Titre : [Certification des Compétences et Tests de Validation Techniques]
+- Contexte : Après avoir mis en place la gestion des équipes (Cycle 27) et la spécialisation des profils, la plateforme doit maintenant garantir l'excellence technique. Passer d'un modèle déclaratif à un modèle certifié permet de justifier des tarifs premium et d'augmenter le taux de conversion des réservations en renforçant la confiance des Homers.
+- User Story : En tant que Cleaner, je veux passer des modules de validation théoriques et pratiques afin d'obtenir des badges de certification "Vérifié par Sweet-Home" pour augmenter ma visibilité et mes revenus.
+- Règles Métier :
+    - L'accès aux tests de certification est réservé aux Cleaners ayant validé leur KYC (Cycle 7) et réalisé au moins 3 prestations sans litige.
+    - Les tests sont segmentés par compétence (ex: Repassage de précision, Nettoyage de vitres grande hauteur, Produits éco-responsables).
+    - Un score minimum (ex: 85%) est requis pour l'obtention du badge ; un échec entraîne un délai de carence de 30 jours avant une nouvelle tentative.
+    - Les profils certifiés bénéficient d'un badge visuel distinctif sur le moteur de recherche et d'un boost de positionnement algorithmique.
+    - L'obtention d'une certification permet au Cleaner de débloquer une plage de tarifs horaires supérieurs à la moyenne locale.
+    - Les Homers peuvent filtrer les résultats de recherche spécifiquement sur les "Profils Certifiés".

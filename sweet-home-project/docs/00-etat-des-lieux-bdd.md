@@ -224,3 +224,6 @@ Nouvelles modifications pour : [Gestion des Annulations et Politique de Rembours
 
 -- Ajout au Cycle 27 --
 Nouvelles modifications pour : [Gestion des Réservations Multi-Prestataires (Équipes)]
+
+-- Ajout au Cycle 28 --
+Nouvelles modifications pour : [Certification des Compétences et Tests de Validation Techniques]

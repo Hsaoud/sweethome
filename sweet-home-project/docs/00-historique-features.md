@@ -28,3 +28,4 @@
 - Cycle 24 : [Système de Synchronisation Calendrier Externe (Google/iCal)] (Développée et Testée)
 - Cycle 25 : [Système de Suivi de l'Arrivée du Prestataire en Temps Réel (Live Tracking)] (Développée et Testée)
 - Cycle 26 : [Gestion des Annulations et Politique de Remboursement] (Développée et Testée)
+- Cycle 27 : [Gestion des Réservations Multi-Prestataires (Équipes)] (Développée et Testée)
