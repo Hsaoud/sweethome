@@ -167,3 +167,6 @@ Nouvelles modifications pour : [Vérification d'Identité (KYC) et Certification
 
 -- Ajout au Cycle 8 --
 Nouvelles modifications pour : [Planification de Prestations Récurrentes (Abonnement)]
+
+-- Ajout au Cycle 9 --
+Nouvelles modifications pour : [Gestion du Calendrier de Disponibilités et des Indisponibilités]

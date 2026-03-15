@@ -9,3 +9,4 @@
 - Cycle 5 : [Système de Notation et d'Évaluation des Prestations] (Développée et Testée)
 - Cycle 6 : [Système de Paiement Sécurisé et Séquestre des Fonds] (Développée et Testée)
 - Cycle 7 : [Vérification d'Identité (KYC) et Certification des Profils] (Développée et Testée)
+- Cycle 8 : [Planification de Prestations Récurrentes (Abonnement)] (Développée et Testée)
