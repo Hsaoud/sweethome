@@ -182,3 +182,6 @@ Nouvelles modifications pour : [Génération Automatisée de Factures et Attesta
 
 -- Ajout au Cycle 13 --
 Nouvelles modifications pour : [Tableau de Bord Analytique et Suivi des Revenus pour les Cleaners]
+
+-- Ajout au Cycle 14 --
+Nouvelles modifications pour : [Système de Parrainage et de Fidélisation (Growth Engine)]
