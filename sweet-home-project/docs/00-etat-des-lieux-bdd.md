@@ -203,3 +203,6 @@ Nouvelles modifications pour : [Gestion Multi-Logements pour les Homers]
 
 -- Ajout au Cycle 20 --
 Nouvelles modifications pour : [Gestion des Remplacements et Continuité de Service]
+
+-- Ajout au Cycle 21 --
+Nouvelles modifications pour : [Compte Famille et Co-Gestion du Foyer]

@@ -21,3 +21,4 @@
 - Cycle 17 : Système de Pourboire (Tipping) Post-Prestation (Développée et Testée)
 - Cycle 18 : [Gestion des Modes d'Accès et Protocoles d'Entrée Sécurisés] (Développée et Testée)
 - Cycle 19 : [Gestion Multi-Logements pour les Homers] (Développée et Testée)
+- Cycle 20 : [Gestion des Remplacements et Continuité de Service] (Développée et Testée)
