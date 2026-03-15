@@ -161,3 +161,6 @@ Nouvelles modifications pour : [Système de Notation et d'Évaluation des Presta
 
 -- Ajout au Cycle 6 --
 Nouvelles modifications pour : [Système de Paiement Sécurisé et Séquestre des Fonds]
+
+-- Ajout au Cycle 7 --
+Nouvelles modifications pour : [Vérification d'Identité (KYC) et Certification des Profils]
