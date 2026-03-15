@@ -185,3 +185,6 @@ Nouvelles modifications pour : [Tableau de Bord Analytique et Suivi des Revenus 
 
 -- Ajout au Cycle 14 --
 Nouvelles modifications pour : [Système de Parrainage et de Fidélisation (Growth Engine)]
+
+-- Ajout au Cycle 15 --
+Nouvelles modifications pour : [Système de Check-in/Check-out et Preuve de Prestation par Photo]
